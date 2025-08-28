@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+  <script src="path/to/chartjs/dist/chart.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+  <title>Emotional and Behavioural stressors</title>
+<style>
+:root {
+  --AIMblue: #4353A3;
+  --darkBlue: #38416D;
+  --teal: #5DC8B9;
+  --cream: #F1EEDE;
+  --grey: #e7e9ec;
+  --rust: #AF4510;
+  --navy: #12195C;
+  --white: #ffffff;
+  --lightBlue: #AEBAE4;
+}
+
+body {
+  font-family: "IBM-Plex-Sans", sans-serif;
+}
+
+.displayGroup {
+  text-align: center;
+  justify-content: center;
+}
+
+.canvasCard {
+  width:600px;
+  overflow: hidden;
+}
+
+.borderGroup {
+  border: solid 1px black;
+  width: fit-content;
+  margin: auto;
+}
+
+p {
+  padding-right: 10px;
+  text-align: left;
+}
+
+li {
+  list-style: none;
+  padding: 5px;
+}
+
+.resultsGroup {
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  max-width: 600px;
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  min-width: 60px;
+  height: 34px;
+  margin-left: 40px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #AF4510;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.inputOne:checked + .slider {
+  background-color: #38416D;
+}
+
+.inputOne:focus + .slider {
+  box-shadow: 0 0 1px #38416D;
+}
+
+.inputTwo:checked + .slider {
+  background-color: #38416D;
+}
+
+.inputTwo:focus + .slider {
+  box-shadow: 0 0 1px #38416D;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+fieldset {
+  width: auto;
+  border: none;
+  padding-bottom: 0px;
+}
+
+.checkContainer {
+  border-bottom: grey 2px dotted;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 5px;
+}
+
+button {
+  background-color: #12195C;
+  position: relative;
+  color: white;
+  width: 200px;
+  border: solid 2px var(--cream);
+  border-radius: 8px;
+  margin-top: 10px;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+button:hover {
+  background-color: var(--lightBlue);
+  color: #12195C;
+  border: solid 2px #12195C;
+}
+
+.floaty {
+  float: right;
+}
+
+.containment {
+  width: fit-content;
+  margin: auto;
+  display: flex;
+}
+@media screen and (max-width: 800px) {
+  .displayGroup {
+    flex-wrap: wrap;
+  }
+  .containment {
+      width: auto;
+      flex-wrap: wrap;
+  }
+}
+</style>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<body>
+  <div class="containment">
+  <div class="displayGroup">
+<div class="borderGroup">
+<form name="Emotional Stress Options" onsubmit="return false" onchange="calculate(this)">
+ <fieldset>
+  <legend style="display:none;"></legend>
+   <div class="formContainer">
+    <div class="checkContainer">
+        <h3>When I feel stressed I tend to</h3><h3 class="floaty">NO / YES</h3>
+    </div>
+  <!--Check 1-->
+     <div class="checkContainer">
+     <p label="question1">Worry and ruminate</p>
+      <label class="switch">
+        <input
+          class="inputOne"
+          type="checkbox"
+          role="switch"
+          name=one
+          autocomplete="off">
+       <span class="slider round"></span></label></div>
+  <!--Check 2-->
+   <div class="checkContainer">
+   <p>Feel overwhelmed and/or unable to concentrate</p>
+     <label class="switch">
+        <input 
+          class="inputOne"
+          type="checkbox"
+          role="switch"
+          name=two
+          autocomplete="off">
+       <span class="slider round"></span></label></div>
+  <!--Check 3-->
+   <div class="checkContainer">
+   <p>Feel restless, impatient or irritable</p>
+     <label class="switch">
+        <input 
+        class="inputOne"
+        type="checkbox"
+        role="switch"
+        name=three
+        autocomplete="off">
+       <span class="slider round"></span></label></div>
+  <!--Check 4-->
+   <div class="checkContainer">
+   <p>Become irrational</p>
+     <label class="switch">
+        <input
+        class="inputOne"
+        type="checkbox"
+        role="switch"
+        name=four
+        autocomplete="off">
+       <span class="slider round"></span></label></div>
+  <!--Check 5-->
+   <div class="checkContainer">
+   <p>Feel depressed and/or hopeless</p>
+     <label class="switch">
+        <input
+        class="inputOne"
+        type="checkbox"
+        role="switch"
+        name=five
+        autocomplete="off">
+       <span class="slider round"></span></label></div>
+   <!--Check 6-->
+   <div class="checkContainer">
+   <p>Overreact and/or react emotionally</p>
+     <label class="switch">
+        <input
+        class="inputOne"
+        type="checkbox"
+        role="switch"
+        name=six
+        autocomplete="off">
+       <span class="slider round"></span></label></div>
+   </div>
+  <p style="display:none;"><output name=result id="numericalResult"></output></p>
+ </fieldset>
+ <script>
+  calculate(document.forms.pricecalc);
+ </script>
+</form>
+<form name="Behavioural Stress Options" onsubmit="return false" onchange="calculate(this)">
+ <fieldset>
+  <legend style="display:none;"></legend>
+   <div class="formContainer">
+  <!--Check 1-->
+     <div class="checkContainer">
+     <p label="question1">Rely on medication, drugs or alcohol to cope</p>
+      <label class="switch">
+        <input
+          class="inputTwo"
+          type="checkbox"
+          role="switch"
+          name=one
+          autocomplete="off">
+       <span class="slider round"></span></label></div>
+  <!--Check 2-->
+   <div class="checkContainer">
+   <p>Talk quickly and/or loudly</p>
+     <label class="switch">
+        <input 
+          class="inputTwo"
+          type="checkbox"
+          role="switch"
+          name=two
+          autocomplete="off">
+       <span class="slider round"></span></label></div>
+  <!--Check 3-->
+   <div class="checkContainer">
+   <p>Become forgetful and/or more accident prone</p>
+     <label class="switch">
+        <input 
+        class="inputTwo"
+        type="checkbox"
+        role="switch"
+        name=three
+        autocomplete="off">
+       <span class="slider round"></span></label></div>
+  <!--Check 4-->
+   <div class="checkContainer">
+   <p>Neglect my personal appearance</p>
+     <label class="switch">
+        <input
+        class="inputTwo"
+        type="checkbox"
+        role="switch"
+        name=four
+        autocomplete="off">
+       <span class="slider round"></span></label></div>
+  <!--Check 5-->
+   <div class="checkContainer">
+   <p>Notice changes to my appetite or eating patterns</p>
+     <label class="switch">
+        <input
+        class="inputTwo"
+        type="checkbox"
+        role="switch"
+        name=five
+        autocomplete="off">
+       <span class="slider round"></span></label></div>
+ <!--Check 6-->
+   <div class="checkContainer">
+   <p>Shut myself off to others</p>
+     <label class="switch">
+        <input
+        class="inputTwo"
+        type="checkbox"
+        role="switch"
+        name=six
+        autocomplete="off">
+       <span class="slider round"></span></label></div>
+   </div>
+  <p  style="display:none;">Total:<output name=result id="numericalResultTwo"></output></p>
+ </fieldset>
+
+ <script>
+  calculate(document.forms.pricecalc);
+    calculate2(document.forms.answerscalc);
+ </script>
+</form>
+</div>
+<button onclick="submitNewData(); formOne()">Submit
+      </button>
+  </div>
+      
+      <div class="displayGroup">
+      <section class="canvasCard">
+        <canvas width="500" height="400" id="myChart" class="canvasGraph">
+        </canvas>
+    </section>
+    <div class="resultsGroup">
+  <p id="results"></p>
+<!--<p id="resultsTwo"></p>  -->
+</div>
+  </div>
+  <!--
+<button onclick="formOne(); formTwo()">Results</button>-->
+
+</div>
+</body>
+
+<script>
+  
+//first variable defines what the points are labeled with
+var labels = ["Emotional stress", "Behavioural stress"];
+//second variable is our array - this is what we need to push our values to.
+let yValues = [0, 0];
+//Test variable to change the map area from that horrible grey
+
+
+
+const chart = new Chart("myChart", {
+  type: "pie",
+  data: {
+    labels,
+    datasets: [{
+      backgroundColor: [
+      '#38416D',
+      '#5DC8B9' //TODO: connect colour of area and 'on' toggle in inputs
+    ],
+      data: yValues,
+      label: 'Values',
+    }],
+  },
+options: {
+    responsive: true,
+    plugins: {
+      tooltip: {
+        displayColors: false,
+      },
+      legend: {
+        position: 'top',
+        labels: {
+          color: 'black',
+                    // This more specific font property overrides the global property
+                    font: {
+                        size: 20,
+                    }
+                },
+      },
+      title: {
+        display: true,
+        text: 'Reflections',
+         color: 'black',
+                    // This more specific font property overrides the global property
+                    font: {
+                        size: 20,
+                    }
+      }
+    }
+  },
+});
+
+//Better idea - function is called when all the inputs have been updated and the user clicks the submit button. The submit function pulls the input data from the 5 ids, and replaces a default array w them. would updating call them all again? maybe
+
+function submitNewData() {
+  var x = Number(document.getElementById("numericalResult").value);
+ yValues.splice(0, 1, x);
+
+   var y = Number(document.getElementById("numericalResultTwo").value);
+ yValues.splice(1, 1, y);
+
+  console.log(yValues);
+
+  chart.update();
+}
+
+  
+function calculate2(form) {
+   var answers = 0;
+   if (form.elements.one.checked)
+     answers += 1;
+   if (form.elements.two.checked)
+     answers += 1;
+   if (form.elements.three.checked)
+     answers += 1;
+   if (form.elements.four.checked)
+     answers += 1;
+   if (form.elements.five.checked)
+     price += 1;
+   if (form.elements.six.checked)
+     answers += 1;
+   form.elements.result.value = answers;
+   console.log(answers);
+ }
+ 
+ function calculate(form) {
+   var price = 0;
+   if (form.elements.one.checked)
+     price += 1;
+   if (form.elements.two.checked)
+     price += 1;
+   if (form.elements.three.checked)
+     price += 1;
+   if (form.elements.four.checked)
+     price += 1;
+   if (form.elements.five.checked)
+     price += 1;
+   if (form.elements.six.checked)
+     price += 1;
+   form.elements.result.value = price;
+ }
+ function formOne() {
+  var x = Number(document.getElementById("numericalResult").value);
+  var y = document.getElementById("results");
+  var z = Number(document.getElementById("numericalResultTwo").value);
+  var j = document.getElementById("resultsTwo");
+  console.log(x);
+  console.log(z);
+    j.innerHTML = y.innerHTML = 'You scored ' + z + ' for behavioural stress and ' + x + ' for emotional stress. Scroll down and press continue to move on.';
+}
+
+//  function formTwo() {
+//   var x = Number(document.getElementById("numericalResultTwo").value);
+//   var y = document.getElementById("resultsTwo");
+//   console.log(x);
+//   if (x === 1 || x === 2) {
+//      y.innerHTML = 'Your behavioural stress levels are equal to or lower than 2';
+//   } else if (x === 3) {
+//     y.innerHTML = 'result is 3';
+//   } else if (x === 4) {
+//     y.innerHTML = 'result is 4';
+//   } else { (x === 5) 
+//     y.innerHTML = 'result is 5';
+//   }
+// }
+
+//  yValues[0] = x; // Make sure it's a number
+ // Chart.data.datasets[0].data = yValues;
+ //TODO: refactor to use switch? with range declared elsewhere
+</script>
+</html>
+

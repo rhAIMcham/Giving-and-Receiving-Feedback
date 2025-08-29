@@ -1,19 +1,103 @@
 <!DOCTYPE html>
-<head>
-<meta charset="UTF-8">
-  <script src="path/to/chartjs/dist/chart.umd.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
-  <title>Communication Styles</title>
-<style>
-li {
-  border: 2px solid red;
-}
+<html>
 
-ul {
-  padding: 0px;
-}
+<head>
+    <meta charset="utf-8" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Image Slider</title>
+
+    <style>
+           /* CSS code */
+        body {
+            font-family: "IBM-Plex-Sans", sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .CardSlider {
+            width: 800px;
+            height: 500px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .imgs_slides {
+            width: 500%;
+            height: 500px;
+            display: flex;
+        }
+
+        /* We have to set display: none;
+          If not, all of our images would 
+          be visible at the same time */
+        .imgs_slides input {
+            display: none;
+        }
+
+        .CardSlide {
+            width: 20%;
+            transition: 2s;
+        }
+
+        .CardSlide img {
+            width: 800px;
+            height: 500px;
+        }
+
+        /* css for slide navigation */
+        .navigation {
+            position: absolute;
+            width: 800px;
+            margin-top: -40px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .navigation-btn {
+            border: 2px solid #de6a23;
+            padding: 5px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 1s;
+        }
+
+        .navigation-btn:not(:last-child) {
+            margin-right: 40px;
+        }
+
+        .navigation-btn:hover {
+            background: #de6a23;
+        }
+
+        /* The checked attribute is used with
+        reference to <input type="radio">, 
+        when radio button is clicked the 
+        class will shift w.r.t  left margin 
+        as mentioned which results in image 
+        slider */
+        #radio1:checked~.first {
+            margin-left: 0;
+        }
+
+        #radio2:checked~.first {
+            margin-left: -20%;
+        }
+
+        #radio3:checked~.first {
+            margin-left: -40%;
+        }
+
+        #radio4:checked~.first {
+            margin-left: -60%;
+        }
+
+        #radio5:checked~.first {
+            margin-left: -80%;
+        }
 
 :root {
   --AIMblue: #4353A3;
@@ -152,6 +236,9 @@ button {
   font-size: 1rem;
 }
 
+.hidden {
+    display: none;
+}
 button:hover {
   background-color: var(--lightBlue);
   color: #12195C;
@@ -176,15 +263,30 @@ button:hover {
       flex-wrap: wrap;
   }
 }
-</style>
+    </style>
 </head>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <body>
-  <div class="containment">
-  <div class="displayGroup">
-<div class="borderGroup">
-  <ul>
-<li><form name="Emotional Stress Options" onsubmit="return false" onchange="calculate(this)">
+
+        <!-- Image slider start -->
+        <div class="CardSlider" id="CardHolder">
+            <div class="imgs_slides">
+
+                <!-- Radio buttons start -->
+                <input type="radio" name="radio-btn" id="radio1" />
+
+                <input type="radio" name="radio-btn" id="radio2" />
+
+                <input type="radio" name="radio-btn" id="radio3" />
+
+                <input type="radio" name="radio-btn" id="radio4" />
+
+                <input type="radio" name="radio-btn" id="radio5" />
+
+                <!-- Radio buttons end -->
+                <!-- Embedding  images start -->
+                <div class="first CardSlide">
+                   <form name="Emotional Stress Options" onsubmit="return false" onchange="calculate(this)">
  <fieldset>
   <legend style="display:none;"></legend>
    <div class="formContainer">
@@ -263,8 +365,174 @@ button:hover {
  <script>
   calculate(document.forms.pricecalc);
  </script>
-</form></li>
-<li><form name="Behavioural Stress Options" onsubmit="return false" onchange="calculate(this)">
+</form>
+                </div>
+                <div class="CardSlide">
+                   <form name="Emotional Stress Options" onsubmit="return false" onchange="calculate(this)">
+ <fieldset>
+  <legend style="display:none;"></legend>
+   <div class="formContainer">
+    <div class="checkContainer">
+        <h3>Characteristics Group A</h3><h3 class="floaty">NO / YES</h3>
+    </div>
+  <!--Check 1-->
+     <div class="checkContainer">
+     <p label="question1">Worry and ruminate</p>
+      <label class="switch">
+        <input
+          class="inputOne"
+          type="checkbox"
+          role="switch"
+          name=one
+          autocomplete="off">
+       <span class="slider round"></span></label></div>
+  <!--Check 2-->
+   <div class="checkContainer">
+   <p>Feel overwhelmed and/or unable to concentrate</p>
+     <label class="switch">
+        <input 
+          class="inputOne"
+          type="checkbox"
+          role="switch"
+          name=two
+          autocomplete="off">
+       <span class="slider round"></span></label></div>
+  <!--Check 3-->
+   <div class="checkContainer">
+   <p>Feel restless, impatient or irritable</p>
+     <label class="switch">
+        <input 
+        class="inputOne"
+        type="checkbox"
+        role="switch"
+        name=three
+        autocomplete="off">
+       <span class="slider round"></span></label></div>
+  <!--Check 4-->
+   <div class="checkContainer">
+   <p>Become irrational</p>
+     <label class="switch">
+        <input
+        class="inputOne"
+        type="checkbox"
+        role="switch"
+        name=four
+        autocomplete="off">
+       <span class="slider round"></span></label></div>
+  <!--Check 5-->
+   <div class="checkContainer">
+   <p>Feel depressed and/or hopeless</p>
+     <label class="switch">
+        <input
+        class="inputOne"
+        type="checkbox"
+        role="switch"
+        name=five
+        autocomplete="off">
+       <span class="slider round"></span></label></div>
+   <!--Check 6-->
+   <div class="checkContainer">
+   <p>Overreact and/or react emotionally</p>
+     <label class="switch">
+        <input
+        class="inputOne"
+        type="checkbox"
+        role="switch"
+        name=six
+        autocomplete="off">
+       <span class="slider round"></span></label></div>
+   </div>
+  <p style="display:none;"><output name=result id="numericalResult"></output></p>
+ </fieldset>
+ <script>
+  calculate(document.forms.pricecalc);
+ </script>
+</form>
+                </div>
+                <div class="CardSlide">
+                   <form name="Emotional Stress Options" onsubmit="return false" onchange="calculate(this)">
+ <fieldset>
+  <legend style="display:none;"></legend>
+   <div class="formContainer">
+    <div class="checkContainer">
+        <h3>Characteristics Group A</h3><h3 class="floaty">NO / YES</h3>
+    </div>
+  <!--Check 1-->
+     <div class="checkContainer">
+     <p label="question1">Worry and ruminate</p>
+      <label class="switch">
+        <input
+          class="inputOne"
+          type="checkbox"
+          role="switch"
+          name=one
+          autocomplete="off">
+       <span class="slider round"></span></label></div>
+  <!--Check 2-->
+   <div class="checkContainer">
+   <p>Feel overwhelmed and/or unable to concentrate</p>
+     <label class="switch">
+        <input 
+          class="inputOne"
+          type="checkbox"
+          role="switch"
+          name=two
+          autocomplete="off">
+       <span class="slider round"></span></label></div>
+  <!--Check 3-->
+   <div class="checkContainer">
+   <p>Feel restless, impatient or irritable</p>
+     <label class="switch">
+        <input 
+        class="inputOne"
+        type="checkbox"
+        role="switch"
+        name=three
+        autocomplete="off">
+       <span class="slider round"></span></label></div>
+  <!--Check 4-->
+   <div class="checkContainer">
+   <p>Become irrational</p>
+     <label class="switch">
+        <input
+        class="inputOne"
+        type="checkbox"
+        role="switch"
+        name=four
+        autocomplete="off">
+       <span class="slider round"></span></label></div>
+  <!--Check 5-->
+   <div class="checkContainer">
+   <p>Feel depressed and/or hopeless</p>
+     <label class="switch">
+        <input
+        class="inputOne"
+        type="checkbox"
+        role="switch"
+        name=five
+        autocomplete="off">
+       <span class="slider round"></span></label></div>
+   <!--Check 6-->
+   <div class="checkContainer">
+   <p>Overreact and/or react emotionally</p>
+     <label class="switch">
+        <input
+        class="inputOne"
+        type="checkbox"
+        role="switch"
+        name=six
+        autocomplete="off">
+       <span class="slider round"></span></label></div>
+   </div>
+  <p style="display:none;"><output name=result id="numericalResult"></output></p>
+ </fieldset>
+ <script>
+  calculate(document.forms.pricecalc);
+ </script>
+</form>
+                </div>
+                <div class="CardSlide">
+<form name="Behavioural Stress Options" onsubmit="return false" onchange="calculate(this)">
  <fieldset>
   <legend style="display:none;"></legend>
    <div class="formContainer">
@@ -345,14 +613,32 @@ button:hover {
   calculate(document.forms.pricecalc);
     calculate2(document.forms.answerscalc);
  </script>
-</form></li>
-</ul>
-</div>
-<button onclick="submitNewData(); formOne()">Submit
+</form>
+                </div>
+                <div class="CardSlide">
+<button onclick="changeDisplay(); submitNewData(); formOne()">Submit
       </button>
-  </div>
-      
-      <div class="displayGroup">
+                <!-- Embedding images end -->
+            </div>
+
+            <!-- Navigation start -->
+            <div class="navigation">
+                <label for="radio1" class="navigation-btn">
+                </label>
+                <label for="radio2" class="navigation-btn">
+                </label>
+                <label for="radio3" class="navigation-btn">
+                </label>
+                <label for="radio4" class="navigation-btn">
+                </label>
+                <label for="radio5" class="navigation-btn">
+                </label>
+            </div>
+            <!-- Navigation end -->
+        </div>
+        <!-- Image slider end -->
+         </div>
+ <div class="displayGroup; hidden" id="graphDisp">
       <section class="canvasCard">
         <canvas width="500" height="400" id="myChart" class="canvasGraph">
         </canvas>
@@ -361,13 +647,7 @@ button:hover {
   <p id="results"></p>
 <!--<p id="resultsTwo"></p>  -->
 </div>
-  </div>
-  <!--
-<button onclick="formOne(); formTwo()">Results</button>-->
-
-</div>
 </body>
-
 <script>
   
 var labels = ["Italy", "France", "Spain", "USA"];
@@ -460,6 +740,13 @@ function calculate2(form) {
     j.innerHTML = y.innerHTML = 'You scored ' + z + ' for behavioural stress and ' + x + ' for emotional stress. Scroll down and press continue to move on.';
 }
 
+ function changeDisplay() {
+     let x = document.getElementById("CardHolder");
+     let y = document.getElementById("graphDisp");
+   x.classList.toggle('hidden');
+      y.classList.toggle('hidden');
+ }
+
 //  function formTwo() {
 //   var x = Number(document.getElementById("numericalResultTwo").value);
 //   var y = document.getElementById("resultsTwo");
@@ -480,4 +767,3 @@ function calculate2(form) {
  //TODO: refactor to use switch? with range declared elsewhere
 </script>
 </html>
-

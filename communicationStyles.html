@@ -1,103 +1,111 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset="utf-8" />
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <title>Image Slider</title>
+  <meta charset="utf-8" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <title>Image Slider</title>
+<style>
+    /* CSS code */
+body {
+    font-family: "IBM-Plex-Sans", sans-serif;
+    margin: 0;
+    padding: 0;
+    margin-top: 40px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-    <style>
-           /* CSS code */
-        body {
-            font-family: "IBM-Plex-Sans", sans-serif;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+.CardSlider {
+    width: 800px;
+    height: 800px;
+    border-radius: 10px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
 
-        .CardSlider {
-            width: 800px;
-            height: 500px;
-            border-radius: 10px;
-            overflow: hidden;
-        }
+.imgs_slides {
+    width: 500%;
+    height: 800px;
+    display: flex;
+}
 
-        .imgs_slides {
-            width: 500%;
-            height: 500px;
-            display: flex;
-        }
+/* We have to set display: none;
+  If not, all of our images would 
+  be visible at the same time */
+.imgs_slides input {
+    display: none;
+}
 
-        /* We have to set display: none;
-          If not, all of our images would 
-          be visible at the same time */
-        .imgs_slides input {
-            display: none;
-        }
+.CardSlide {
+    width: 20%;
+    transition: 0.8s;
+}
 
-        .CardSlide {
-            width: 20%;
-            transition: 2s;
-        }
+.CardSlide img {
+    width: 800px;
+    height: 500px;
+}
 
-        .CardSlide img {
-            width: 800px;
-            height: 500px;
-        }
+#radio1:checked ~ .navigation .navigation-btn:nth-child(1),
+#radio2:checked ~ .navigation .navigation-btn:nth-child(2),
+#radio3:checked ~ .navigation .navigation-btn:nth-child(3),
+#radio4:checked ~ .navigation .navigation-btn:nth-child(4),
+#radio5:checked ~ .navigation .navigation-btn:nth-child(5) {
+    background: var(--AIMblue);
+}
 
-        /* css for slide navigation */
-        .navigation {
-            position: absolute;
-            width: 800px;
-            margin-top: -40px;
-            display: flex;
-            justify-content: center;
-        }
+/* css for slide navigation */
+.navigation {
+    position: absolute;
+    width: 800px;
+    margin-top: -40px;
+    display: flex;
+    justify-content: center;
+}
 
-        .navigation-btn {
-            border: 2px solid #de6a23;
-            padding: 5px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: 1s;
-        }
+.navigation-btn {
+    border: 2px solid var(--darkBlue);
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
 
-        .navigation-btn:not(:last-child) {
-            margin-right: 40px;
-        }
+.navigation-btn:not(:last-child) {
+    margin-right: 40px;
+}
 
-        .navigation-btn:hover {
-            background: #de6a23;
-        }
+.navigation-btn:hover {
+    background: var(--darkBlue);
+}
 
-        /* The checked attribute is used with
-        reference to <input type="radio">, 
-        when radio button is clicked the 
-        class will shift w.r.t  left margin 
-        as mentioned which results in image 
-        slider */
-        #radio1:checked~.first {
-            margin-left: 0;
-        }
+/* The checked attribute is used with
+reference to <input type="radio">, 
+when radio button is clicked the 
+class will shift w.r.t  left margin 
+as mentioned which results in image 
+slider */
+#radio1:checked~.first {
+    margin-left: 0;
+}
 
-        #radio2:checked~.first {
-            margin-left: -20%;
-        }
+#radio2:checked~.first {
+    margin-left: -20%;
+}
 
-        #radio3:checked~.first {
-            margin-left: -40%;
-        }
+#radio3:checked~.first {
+    margin-left: -40%;
+}
 
-        #radio4:checked~.first {
-            margin-left: -60%;
-        }
+#radio4:checked~.first {
+    margin-left: -60%;
+}
 
-        #radio5:checked~.first {
-            margin-left: -80%;
-        }
+#radio5:checked~.first {
+    margin-left: -80%;
+}
 
 :root {
   --AIMblue: #4353A3;
@@ -121,7 +129,7 @@ body {
 }
 
 .canvasCard {
-  width:600px;
+  width:800px;
   overflow: hidden;
 }
 
@@ -265,357 +273,972 @@ button:hover {
 }
     </style>
 </head>
-
 <body>
+<!-- Image slider start -->
+<div class="CardSlider" id="CardHolder">
+    <div class="imgs_slides">
 
-        <!-- Image slider start -->
-        <div class="CardSlider" id="CardHolder">
-            <div class="imgs_slides">
+        <!-- Radio buttons start -->
+        <input type="radio" name="radio-btn" id="radio1" checked/>
 
-                <!-- Radio buttons start -->
-                <input type="radio" name="radio-btn" id="radio1" />
+        <input type="radio" name="radio-btn" id="radio2" />
 
-                <input type="radio" name="radio-btn" id="radio2" />
+        <input type="radio" name="radio-btn" id="radio3" />
 
-                <input type="radio" name="radio-btn" id="radio3" />
+        <input type="radio" name="radio-btn" id="radio4" />
 
-                <input type="radio" name="radio-btn" id="radio4" />
+        <input type="radio" name="radio-btn" id="radio5" />
 
-                <input type="radio" name="radio-btn" id="radio5" />
-
-                <!-- Radio buttons end -->
-                <!-- Embedding  images start -->
-                <div class="first CardSlide">
-                   <form name="Emotional Stress Options" onsubmit="return false" onchange="calculate(this)">
+        <!-- Radio buttons end -->
+        <!-- Embedding  forms start -->
+        <div class="first CardSlide">
+          <form name="Style I – Blue/Analytical" onsubmit="return false" onchange="calculate(this)">
+            <fieldset>
+              <legend style="display:none;"></legend>
+              <div class="formContainer">
+                <div class="checkContainer">
+                    <h3>Style I – Blue/Analytical</h3><h3 class="floaty">NO / YES</h3>
+                </div>
+              <!--Check 1-->
+                <div class="checkContainer">
+                <p label="question1">Insightful</p>
+                  <label class="switch">
+                    <input
+                      class="inputOne"
+                      type="checkbox"
+                      role="switch"
+                      name=one
+                      autocomplete="off">
+                  <span class="slider round"></span></label></div>
+              <!--Check 2-->
+              <div class="checkContainer">
+              <p label="question2">Orderly</p>
+                <label class="switch">
+                    <input 
+                      class="inputOne"
+                      type="checkbox"
+                      role="switch"
+                      name=two
+                      autocomplete="off">
+                  <span class="slider round"></span></label></div>
+              <!--Check 3-->
+              <div class="checkContainer">
+              <p label="question3">Feel restless, impatient or irritable</p>
+                <label class="switch">
+                    <input 
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=three
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+              <!--Check 4-->
+              <div class="checkContainer">
+              <p label="question4">Become irrational</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=four
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+              <!--Check 5-->
+              <div class="checkContainer">
+              <p label="question5">Feel depressed and/or hopeless</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=five
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+              <!--Check 6-->
+              <div class="checkContainer">
+              <p label="question6">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=six
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+               <!--Check 7-->
+              <div class="checkContainer">
+              <p label="question7">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=seven
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+           <!--Check 8-->
+              <div class="checkContainer">
+              <p label="question8">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=eight
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+               <!--Check 9-->
+              <div class="checkContainer">
+              <p label="question9">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=nine
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 10-->
+              <div class="checkContainer">
+              <p label="question10">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=ten
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 11-->
+              <div class="checkContainer">
+              <p label="question11">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=eleven
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                <!--Check 12-->
+              <div class="checkContainer">
+              <p label="question12">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=twelve
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 13-->
+              <div class="checkContainer">
+              <p label="question13">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=thirteen
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 14-->
+              <div class="checkContainer">
+              <p label="question14">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=fourteen
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 15-->
+              <div class="checkContainer">
+              <p label="question15">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=fifteen
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 16-->
+              <div class="checkContainer">
+              <p label="question16">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=sixteen
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 17-->
+              <div class="checkContainer">
+              <p label="question17">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=seventeen
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 18-->
+              <div class="checkContainer">
+              <p label="question18">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=eighteen
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 19-->
+              <div class="checkContainer">
+              <p label="question19">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=nineteen
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 20-->
+              <div class="checkContainer">
+              <p label="question20">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=twenty
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+              </div>
+              <p><output name=result id="numericalResultOne"></output></p>
+            </fieldset>
+            <script>
+              calculate(document.forms.answerscalc);
+            </script>
+          </form>
+        </div>
+      <div class="CardSlide">
+      <form name="Style II – Red/Driver" onsubmit="return false" onchange="calculate(this)">
+      <fieldset>
+        <legend style="display:none;"></legend>
+        <div class="formContainer">
+          <div class="checkContainer">
+              <h3>Style II – Red/Driver</h3><h3 class="floaty">NO / YES</h3>
+          </div>
+       <!--Check 1-->
+                <div class="checkContainer">
+                <p label="question1">Insightful</p>
+                  <label class="switch">
+                    <input
+                      class="inputOne"
+                      type="checkbox"
+                      role="switch"
+                      name=one
+                      autocomplete="off">
+                  <span class="slider round"></span></label></div>
+              <!--Check 2-->
+              <div class="checkContainer">
+              <p label="question2">Orderly</p>
+                <label class="switch">
+                    <input 
+                      class="inputOne"
+                      type="checkbox"
+                      role="switch"
+                      name=two
+                      autocomplete="off">
+                  <span class="slider round"></span></label></div>
+              <!--Check 3-->
+              <div class="checkContainer">
+              <p label="question3">Feel restless, impatient or irritable</p>
+                <label class="switch">
+                    <input 
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=three
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+              <!--Check 4-->
+              <div class="checkContainer">
+              <p label="question4">Become irrational</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=four
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+              <!--Check 5-->
+              <div class="checkContainer">
+              <p label="question5">Feel depressed and/or hopeless</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=five
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+              <!--Check 6-->
+              <div class="checkContainer">
+              <p label="question6">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=six
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+               <!--Check 7-->
+              <div class="checkContainer">
+              <p label="question7">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=seven
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+           <!--Check 8-->
+              <div class="checkContainer">
+              <p label="question8">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=eight
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+               <!--Check 9-->
+              <div class="checkContainer">
+              <p label="question9">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=nine
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 10-->
+              <div class="checkContainer">
+              <p label="question10">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=ten
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 11-->
+              <div class="checkContainer">
+              <p label="question11">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=eleven
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                <!--Check 12-->
+              <div class="checkContainer">
+              <p label="question12">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=twelve
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 13-->
+              <div class="checkContainer">
+              <p label="question13">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=thirteen
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 14-->
+              <div class="checkContainer">
+              <p label="question14">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=fourteen
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 15-->
+              <div class="checkContainer">
+              <p label="question15">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=fifteen
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 16-->
+              <div class="checkContainer">
+              <p label="question16">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=sixteen
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 17-->
+              <div class="checkContainer">
+              <p label="question17">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=seventeen
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 18-->
+              <div class="checkContainer">
+              <p label="question18">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=eighteen
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 19-->
+              <div class="checkContainer">
+              <p label="question19">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=nineteen
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 20-->
+              <div class="checkContainer">
+              <p label="question20">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=twenty
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+              </div>
+        <p><output name=result id="numericalResultTwo"></output></p>
+      </fieldset>
+      <script>
+        calculate(document.forms.answerscalc);
+      </script>
+      </form>
+      </div>
+<div class="CardSlide">
+<form name="Style III – Yellow/Expressive" onsubmit="return false" onchange="calculate(this)">
  <fieldset>
   <legend style="display:none;"></legend>
    <div class="formContainer">
     <div class="checkContainer">
-        <h3>Characteristics Group A</h3><h3 class="floaty">NO / YES</h3>
+        <h3>Style III – Yellow/Expressive</h3><h3 class="floaty">NO / YES</h3>
     </div>
   <!--Check 1-->
-     <div class="checkContainer">
-     <p label="question1">Worry and ruminate</p>
-      <label class="switch">
-        <input
-          class="inputOne"
-          type="checkbox"
-          role="switch"
-          name=one
-          autocomplete="off">
-       <span class="slider round"></span></label></div>
-  <!--Check 2-->
-   <div class="checkContainer">
-   <p>Feel overwhelmed and/or unable to concentrate</p>
-     <label class="switch">
-        <input 
-          class="inputOne"
-          type="checkbox"
-          role="switch"
-          name=two
-          autocomplete="off">
-       <span class="slider round"></span></label></div>
-  <!--Check 3-->
-   <div class="checkContainer">
-   <p>Feel restless, impatient or irritable</p>
-     <label class="switch">
-        <input 
-        class="inputOne"
-        type="checkbox"
-        role="switch"
-        name=three
-        autocomplete="off">
-       <span class="slider round"></span></label></div>
-  <!--Check 4-->
-   <div class="checkContainer">
-   <p>Become irrational</p>
-     <label class="switch">
-        <input
-        class="inputOne"
-        type="checkbox"
-        role="switch"
-        name=four
-        autocomplete="off">
-       <span class="slider round"></span></label></div>
-  <!--Check 5-->
-   <div class="checkContainer">
-   <p>Feel depressed and/or hopeless</p>
-     <label class="switch">
-        <input
-        class="inputOne"
-        type="checkbox"
-        role="switch"
-        name=five
-        autocomplete="off">
-       <span class="slider round"></span></label></div>
-   <!--Check 6-->
-   <div class="checkContainer">
-   <p>Overreact and/or react emotionally</p>
-     <label class="switch">
-        <input
-        class="inputOne"
-        type="checkbox"
-        role="switch"
-        name=six
-        autocomplete="off">
-       <span class="slider round"></span></label></div>
-   </div>
-  <p style="display:none;"><output name=result id="numericalResult"></output></p>
+                <div class="checkContainer">
+                <p label="question1">Insightful</p>
+                  <label class="switch">
+                    <input
+                      class="inputOne"
+                      type="checkbox"
+                      role="switch"
+                      name=one
+                      autocomplete="off">
+                  <span class="slider round"></span></label></div>
+              <!--Check 2-->
+              <div class="checkContainer">
+              <p label="question2">Orderly</p>
+                <label class="switch">
+                    <input 
+                      class="inputOne"
+                      type="checkbox"
+                      role="switch"
+                      name=two
+                      autocomplete="off">
+                  <span class="slider round"></span></label></div>
+              <!--Check 3-->
+              <div class="checkContainer">
+              <p label="question3">Feel restless, impatient or irritable</p>
+                <label class="switch">
+                    <input 
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=three
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+              <!--Check 4-->
+              <div class="checkContainer">
+              <p label="question4">Become irrational</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=four
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+              <!--Check 5-->
+              <div class="checkContainer">
+              <p label="question5">Feel depressed and/or hopeless</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=five
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+              <!--Check 6-->
+              <div class="checkContainer">
+              <p label="question6">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=six
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+               <!--Check 7-->
+              <div class="checkContainer">
+              <p label="question7">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=seven
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+           <!--Check 8-->
+              <div class="checkContainer">
+              <p label="question8">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=eight
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+               <!--Check 9-->
+              <div class="checkContainer">
+              <p label="question9">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=nine
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 10-->
+              <div class="checkContainer">
+              <p label="question10">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=ten
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 11-->
+              <div class="checkContainer">
+              <p label="question11">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=eleven
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                <!--Check 12-->
+              <div class="checkContainer">
+              <p label="question12">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=twelve
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 13-->
+              <div class="checkContainer">
+              <p label="question13">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=thirteen
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 14-->
+              <div class="checkContainer">
+              <p label="question14">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=fourteen
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 15-->
+              <div class="checkContainer">
+              <p label="question15">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=fifteen
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 16-->
+              <div class="checkContainer">
+              <p label="question16">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=sixteen
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 17-->
+              <div class="checkContainer">
+              <p label="question17">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=seventeen
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 18-->
+              <div class="checkContainer">
+              <p label="question18">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=eighteen
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 19-->
+              <div class="checkContainer">
+              <p label="question19">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=nineteen
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 20-->
+              <div class="checkContainer">
+              <p label="question20">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=twenty
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+              </div>
+  <p><output name=result id="numericalResultThree"></output></p>
  </fieldset>
  <script>
-  calculate(document.forms.pricecalc);
+  calculate(document.forms.answerscalc);
  </script>
 </form>
-                </div>
-                <div class="CardSlide">
-                   <form name="Emotional Stress Options" onsubmit="return false" onchange="calculate(this)">
- <fieldset>
-  <legend style="display:none;"></legend>
-   <div class="formContainer">
-    <div class="checkContainer">
-        <h3>Characteristics Group A</h3><h3 class="floaty">NO / YES</h3>
-    </div>
-  <!--Check 1-->
-     <div class="checkContainer">
-     <p label="question1">Worry and ruminate</p>
-      <label class="switch">
-        <input
-          class="inputOne"
-          type="checkbox"
-          role="switch"
-          name=one
-          autocomplete="off">
-       <span class="slider round"></span></label></div>
-  <!--Check 2-->
-   <div class="checkContainer">
-   <p>Feel overwhelmed and/or unable to concentrate</p>
-     <label class="switch">
-        <input 
-          class="inputOne"
-          type="checkbox"
-          role="switch"
-          name=two
-          autocomplete="off">
-       <span class="slider round"></span></label></div>
-  <!--Check 3-->
-   <div class="checkContainer">
-   <p>Feel restless, impatient or irritable</p>
-     <label class="switch">
-        <input 
-        class="inputOne"
-        type="checkbox"
-        role="switch"
-        name=three
-        autocomplete="off">
-       <span class="slider round"></span></label></div>
-  <!--Check 4-->
-   <div class="checkContainer">
-   <p>Become irrational</p>
-     <label class="switch">
-        <input
-        class="inputOne"
-        type="checkbox"
-        role="switch"
-        name=four
-        autocomplete="off">
-       <span class="slider round"></span></label></div>
-  <!--Check 5-->
-   <div class="checkContainer">
-   <p>Feel depressed and/or hopeless</p>
-     <label class="switch">
-        <input
-        class="inputOne"
-        type="checkbox"
-        role="switch"
-        name=five
-        autocomplete="off">
-       <span class="slider round"></span></label></div>
-   <!--Check 6-->
-   <div class="checkContainer">
-   <p>Overreact and/or react emotionally</p>
-     <label class="switch">
-        <input
-        class="inputOne"
-        type="checkbox"
-        role="switch"
-        name=six
-        autocomplete="off">
-       <span class="slider round"></span></label></div>
-   </div>
-  <p style="display:none;"><output name=result id="numericalResult"></output></p>
- </fieldset>
- <script>
-  calculate(document.forms.pricecalc);
- </script>
-</form>
-                </div>
-                <div class="CardSlide">
-                   <form name="Emotional Stress Options" onsubmit="return false" onchange="calculate(this)">
- <fieldset>
-  <legend style="display:none;"></legend>
-   <div class="formContainer">
-    <div class="checkContainer">
-        <h3>Characteristics Group A</h3><h3 class="floaty">NO / YES</h3>
-    </div>
-  <!--Check 1-->
-     <div class="checkContainer">
-     <p label="question1">Worry and ruminate</p>
-      <label class="switch">
-        <input
-          class="inputOne"
-          type="checkbox"
-          role="switch"
-          name=one
-          autocomplete="off">
-       <span class="slider round"></span></label></div>
-  <!--Check 2-->
-   <div class="checkContainer">
-   <p>Feel overwhelmed and/or unable to concentrate</p>
-     <label class="switch">
-        <input 
-          class="inputOne"
-          type="checkbox"
-          role="switch"
-          name=two
-          autocomplete="off">
-       <span class="slider round"></span></label></div>
-  <!--Check 3-->
-   <div class="checkContainer">
-   <p>Feel restless, impatient or irritable</p>
-     <label class="switch">
-        <input 
-        class="inputOne"
-        type="checkbox"
-        role="switch"
-        name=three
-        autocomplete="off">
-       <span class="slider round"></span></label></div>
-  <!--Check 4-->
-   <div class="checkContainer">
-   <p>Become irrational</p>
-     <label class="switch">
-        <input
-        class="inputOne"
-        type="checkbox"
-        role="switch"
-        name=four
-        autocomplete="off">
-       <span class="slider round"></span></label></div>
-  <!--Check 5-->
-   <div class="checkContainer">
-   <p>Feel depressed and/or hopeless</p>
-     <label class="switch">
-        <input
-        class="inputOne"
-        type="checkbox"
-        role="switch"
-        name=five
-        autocomplete="off">
-       <span class="slider round"></span></label></div>
-   <!--Check 6-->
-   <div class="checkContainer">
-   <p>Overreact and/or react emotionally</p>
-     <label class="switch">
-        <input
-        class="inputOne"
-        type="checkbox"
-        role="switch"
-        name=six
-        autocomplete="off">
-       <span class="slider round"></span></label></div>
-   </div>
-  <p style="display:none;"><output name=result id="numericalResult"></output></p>
- </fieldset>
- <script>
-  calculate(document.forms.pricecalc);
- </script>
-</form>
-                </div>
-                <div class="CardSlide">
-<form name="Behavioural Stress Options" onsubmit="return false" onchange="calculate(this)">
+  </div>
+  <div class="CardSlide">
+<form name="Style IV – Green/Amiable" onsubmit="return false" onchange="calculate(this)">
  <fieldset>
   <legend style="display:none;"></legend>
    <div class="formContainer">
         <div class="checkContainer">
-        <h3>Characteristics Group A</h3><h3 class="floaty">NO / YES</h3>
+        <h3>Style IV – Green/Amiable</h3><h3 class="floaty">NO / YES</h3>
     </div>
   <!--Check 1-->
-     <div class="checkContainer">
-     <p label="question1">Rely on medication, drugs or alcohol to cope</p>
-      <label class="switch">
-        <input
-          class="inputTwo"
-          type="checkbox"
-          role="switch"
-          name=one
-          autocomplete="off">
-       <span class="slider round"></span></label></div>
-  <!--Check 2-->
-   <div class="checkContainer">
-   <p>Talk quickly and/or loudly</p>
-     <label class="switch">
-        <input 
-          class="inputTwo"
-          type="checkbox"
-          role="switch"
-          name=two
-          autocomplete="off">
-       <span class="slider round"></span></label></div>
-  <!--Check 3-->
-   <div class="checkContainer">
-   <p>Become forgetful and/or more accident prone</p>
-     <label class="switch">
-        <input 
-        class="inputTwo"
-        type="checkbox"
-        role="switch"
-        name=three
-        autocomplete="off">
-       <span class="slider round"></span></label></div>
-  <!--Check 4-->
-   <div class="checkContainer">
-   <p>Neglect my personal appearance</p>
-     <label class="switch">
-        <input
-        class="inputTwo"
-        type="checkbox"
-        role="switch"
-        name=four
-        autocomplete="off">
-       <span class="slider round"></span></label></div>
-  <!--Check 5-->
-   <div class="checkContainer">
-   <p>Notice changes to my appetite or eating patterns</p>
-     <label class="switch">
-        <input
-        class="inputTwo"
-        type="checkbox"
-        role="switch"
-        name=five
-        autocomplete="off">
-       <span class="slider round"></span></label></div>
- <!--Check 6-->
-   <div class="checkContainer">
-   <p>Shut myself off to others</p>
-     <label class="switch">
-        <input
-        class="inputTwo"
-        type="checkbox"
-        role="switch"
-        name=six
-        autocomplete="off">
-       <span class="slider round"></span></label></div>
-   </div>
-  <p  style="display:none;">Total:<output name=result id="numericalResultTwo"></output></p>
+                <div class="checkContainer">
+                <p label="question1">Insightful</p>
+                  <label class="switch">
+                    <input
+                      class="inputOne"
+                      type="checkbox"
+                      role="switch"
+                      name=one
+                      autocomplete="off">
+                  <span class="slider round"></span></label></div>
+              <!--Check 2-->
+              <div class="checkContainer">
+              <p label="question2">Orderly</p>
+                <label class="switch">
+                    <input 
+                      class="inputOne"
+                      type="checkbox"
+                      role="switch"
+                      name=two
+                      autocomplete="off">
+                  <span class="slider round"></span></label></div>
+              <!--Check 3-->
+              <div class="checkContainer">
+              <p label="question3">Feel restless, impatient or irritable</p>
+                <label class="switch">
+                    <input 
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=three
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+              <!--Check 4-->
+              <div class="checkContainer">
+              <p label="question4">Become irrational</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=four
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+              <!--Check 5-->
+              <div class="checkContainer">
+              <p label="question5">Feel depressed and/or hopeless</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=five
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+              <!--Check 6-->
+              <div class="checkContainer">
+              <p label="question6">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=six
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+               <!--Check 7-->
+              <div class="checkContainer">
+              <p label="question7">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=seven
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+           <!--Check 8-->
+              <div class="checkContainer">
+              <p label="question8">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=eight
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+               <!--Check 9-->
+              <div class="checkContainer">
+              <p label="question9">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=nine
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 10-->
+              <div class="checkContainer">
+              <p label="question10">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=ten
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 11-->
+              <div class="checkContainer">
+              <p label="question11">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=eleven
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                <!--Check 12-->
+              <div class="checkContainer">
+              <p label="question12">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=twelve
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 13-->
+              <div class="checkContainer">
+              <p label="question13">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=thirteen
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 14-->
+              <div class="checkContainer">
+              <p label="question14">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=fourteen
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 15-->
+              <div class="checkContainer">
+              <p label="question15">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=fifteen
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 16-->
+              <div class="checkContainer">
+              <p label="question16">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=sixteen
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 17-->
+              <div class="checkContainer">
+              <p label="question17">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=seventeen
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 18-->
+              <div class="checkContainer">
+              <p label="question18">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=eighteen
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 19-->
+              <div class="checkContainer">
+              <p label="question19">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=nineteen
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+                  <!--Check 20-->
+              <div class="checkContainer">
+              <p label="question20">Overreact and/or react emotionally</p>
+                <label class="switch">
+                    <input
+                    class="inputOne"
+                    type="checkbox"
+                    role="switch"
+                    name=twenty
+                    autocomplete="off">
+                  <span class="slider round"></span></label></div>
+              </div>
+  <p>Total:<output name=result id="numericalResultFour"></output></p>
  </fieldset>
-
  <script>
-  calculate(document.forms.pricecalc);
+  calculate(document.forms.answerscalc);
     calculate2(document.forms.answerscalc);
+        calculate3(document.forms.answerscalc);
+            calculate4(document.forms.answerscalc);
  </script>
 </form>
-                </div>
-                <div class="CardSlide">
+  </div>
+  <div class="CardSlide" id="buttonSlide">
 <button onclick="changeDisplay(); submitNewData(); formOne()">Submit
       </button>
                 <!-- Embedding images end -->
@@ -640,7 +1263,7 @@ button:hover {
          </div>
  <div class="displayGroup; hidden" id="graphDisp">
       <section class="canvasCard">
-        <canvas width="500" height="400" id="myChart" class="canvasGraph">
+        <canvas width="800" height="800" id="communicationStyle" class="canvasGraph">
         </canvas>
     </section>
     <div class="resultsGroup">
@@ -650,19 +1273,19 @@ button:hover {
 </body>
 <script>
   
-var labels = ["Italy", "France", "Spain", "USA"];
+var labels = ["Analytical", "Driver", "Expressive", "Amiable"];
 //second variable is our array - this is what we need to push our values to.
 let yValues = [1, 2, 3, 4];
 //Test variable to change the map area from that horrible grey
 var areaColor = "#1A464250"
 //Last variable sets colours for points
 var barColors = [
-  "#b91d47",
-  "#00aba9",
-  "#2b5797",
-  "#e8c3b9"
+  "#4353A3",
+  "#AF4510",
+  "#dace90",
+  "#68c75c"
 ];
-const chart = new Chart("myChart", {
+const chart = new Chart("communicationStyle", {
   type: "radar",
   data: {
     labels,
@@ -678,23 +1301,156 @@ const chart = new Chart("myChart", {
       text: "Reflection",
     },
     responsive: true,
+    scales: {
+      r: {
+        min: 0,
+        max: 20,
+        ticks: {
+          stepSize: 4  // Optional: sets tick marks every 5 units
+        },
+        pointLabels: {
+    font: {
+      size: 20
+    }
   },
+      }
+    },
+    plugins: {
+    legend: {
+        position: 'top',
+        labels: {
+            color: 'black',
+            font: {
+                size: 20,
+                padding: 20
+            }
+            
+        },
+    },
+    title: {
+        display: true,
+        text: 'Reflections',
+        color: 'black',
+        font: {
+            size: 20
+        }
+    }
+  }
+  },
+
 });
 
 //Better idea - function is called when all the inputs have been updated and the user clicks the submit button. The submit function pulls the input data from the 5 ids, and replaces a default array w them. would updating call them all again? maybe
 
 function submitNewData() {
-  var x = Number(document.getElementById("numericalResult").value);
- yValues.splice(0, 1, x);
+  var a = Number(document.getElementById("numericalResultOne").value);
+ yValues.splice(0, 1, a);
 
-   var y = Number(document.getElementById("numericalResultTwo").value);
- yValues.splice(1, 1, y);
+   var b = Number(document.getElementById("numericalResultTwo").value);
+ yValues.splice(1, 1, b);
+
+   var c = Number(document.getElementById("numericalResultThree").value);
+ yValues.splice(2, 1, c);
+
+   var d = Number(document.getElementById("numericalResultFour").value);
+ yValues.splice(3, 1, d);
 
   console.log(yValues);
 
   chart.update();
 }
 
+function calculate4(form) {
+   var answers = 0;
+   if (form.elements.one.checked)
+     answers += 1;
+   if (form.elements.two.checked)
+     answers += 1;
+   if (form.elements.three.checked)
+     answers += 1;
+   if (form.elements.four.checked)
+     answers += 1;
+   if (form.elements.five.checked)
+     answers += 1;
+   if (form.elements.six.checked)
+     answers += 1;
+  if (form.elements.seven.checked)
+    answers += 1;
+  if (form.elements.eight.checked)
+    answers += 1;
+  if (form.elements.nine.checked)
+    answers += 1;
+  if (form.elements.ten.checked)
+    answers += 1;
+  if (form.elements.eleven.checked)
+    answers += 1;
+  if (form.elements.twelve.checked)
+    answers += 1;
+  if (form.elements.thirteen.checked)
+    answers += 1;
+  if (form.elements.fourteen.checked)
+    answers += 1;
+  if (form.elements.fifteen.checked)
+    answers += 1;
+  if (form.elements.sixteen.checked)
+    answers += 1;
+  if (form.elements.seventeen.checked)
+    answers += 1;
+  if (form.elements.eighteen.checked)
+    answers += 1;
+  if (form.elements.nineteen.checked)
+    answers += 1;
+  if (form.elements.twenty.checked)
+    answers += 1;
+   form.elements.result.value = answers;
+   console.log(answers);
+ }
+ 
+function calculate3(form) {
+   var answers = 0;
+   if (form.elements.one.checked)
+     answers += 1;
+   if (form.elements.two.checked)
+     answers += 1;
+   if (form.elements.three.checked)
+     answers += 1;
+   if (form.elements.four.checked)
+     answers += 1;
+   if (form.elements.five.checked)
+     answers += 1;
+   if (form.elements.six.checked)
+     answers += 1;
+  if (form.elements.seven.checked)
+    answers += 1;
+  if (form.elements.eight.checked)
+    answers += 1;
+  if (form.elements.nine.checked)
+    answers += 1;
+  if (form.elements.ten.checked)
+    answers += 1;
+  if (form.elements.eleven.checked)
+    answers += 1;
+  if (form.elements.twelve.checked)
+    answers += 1;
+  if (form.elements.thirteen.checked)
+    answers += 1;
+  if (form.elements.fourteen.checked)
+    answers += 1;
+  if (form.elements.fifteen.checked)
+    answers += 1;
+  if (form.elements.sixteen.checked)
+    answers += 1;
+  if (form.elements.seventeen.checked)
+    answers += 1;
+  if (form.elements.eighteen.checked)
+    answers += 1;
+  if (form.elements.nineteen.checked)
+    answers += 1;
+  if (form.elements.twenty.checked)
+    answers += 1;
+   form.elements.result.value = answers;
+   console.log(answers);
+ }
   
 function calculate2(form) {
    var answers = 0;
@@ -707,37 +1463,96 @@ function calculate2(form) {
    if (form.elements.four.checked)
      answers += 1;
    if (form.elements.five.checked)
-     price += 1;
+     answers += 1;
    if (form.elements.six.checked)
      answers += 1;
+  if (form.elements.seven.checked)
+    answers += 1;
+  if (form.elements.eight.checked)
+    answers += 1;
+  if (form.elements.nine.checked)
+    answers += 1;
+  if (form.elements.ten.checked)
+    answers += 1;
+  if (form.elements.eleven.checked)
+    answers += 1;
+  if (form.elements.twelve.checked)
+    answers += 1;
+  if (form.elements.thirteen.checked)
+    answers += 1;
+  if (form.elements.fourteen.checked)
+    answers += 1;
+  if (form.elements.fifteen.checked)
+    answers += 1;
+  if (form.elements.sixteen.checked)
+    answers += 1;
+  if (form.elements.seventeen.checked)
+    answers += 1;
+  if (form.elements.eighteen.checked)
+    answers += 1;
+  if (form.elements.nineteen.checked)
+    answers += 1;
+  if (form.elements.twenty.checked)
+    answers += 1;
    form.elements.result.value = answers;
    console.log(answers);
  }
  
  function calculate(form) {
-   var price = 0;
+   var answers = 0;
    if (form.elements.one.checked)
-     price += 1;
+     answers += 1;
    if (form.elements.two.checked)
-     price += 1;
+     answers += 1;
    if (form.elements.three.checked)
-     price += 1;
+     answers += 1;
    if (form.elements.four.checked)
-     price += 1;
+     answers += 1;
    if (form.elements.five.checked)
-     price += 1;
+     answers += 1;
    if (form.elements.six.checked)
-     price += 1;
-   form.elements.result.value = price;
+     answers += 1;
+  if (form.elements.seven.checked)
+    answers += 1;
+  if (form.elements.eight.checked)
+    answers += 1;
+  if (form.elements.nine.checked)
+    answers += 1;
+  if (form.elements.ten.checked)
+    answers += 1;
+  if (form.elements.eleven.checked)
+    answers += 1;
+  if (form.elements.twelve.checked)
+    answers += 1;
+  if (form.elements.thirteen.checked)
+    answers += 1;
+  if (form.elements.fourteen.checked)
+    answers += 1;
+  if (form.elements.fifteen.checked)
+    answers += 1;
+  if (form.elements.sixteen.checked)
+    answers += 1;
+  if (form.elements.seventeen.checked)
+    answers += 1;
+  if (form.elements.eighteen.checked)
+    answers += 1;
+  if (form.elements.nineteen.checked)
+    answers += 1;
+  if (form.elements.twenty.checked)
+    answers += 1;
+   form.elements.result.value = answers;
  }
+
  function formOne() {
-  var x = Number(document.getElementById("numericalResult").value);
-  var y = document.getElementById("results");
-  var z = Number(document.getElementById("numericalResultTwo").value);
-  var j = document.getElementById("resultsTwo");
-  console.log(x);
-  console.log(z);
-    j.innerHTML = y.innerHTML = 'You scored ' + z + ' for behavioural stress and ' + x + ' for emotional stress. Scroll down and press continue to move on.';
+  var a = Number(document.getElementById("numericalResultOne").value);
+  var b = document.getElementById("results");
+  var e = Number(document.getElementById("numericalResultTwo").value);
+  var f = Number(document.getElementById("numericalResultThree").value);
+  var g = Number(document.getElementById("numericalResultFour").value);
+  console.log(a);
+  console.log(e);
+  console.log(g);
+    b.innerHTML = 'You scored '+ a +  ' for form1 and '+ e + ' for form2 and ' + f + ' for form 3 and ' + g + ' for form 4. Scroll down and press continue to move on.';
 }
 
  function changeDisplay() {

@@ -5,8 +5,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
-  <title>Emotional and Behavioural stressors</title>
+  <title>Communication Styles</title>
 <style>
+li {
+  border: 2px solid red;
+}
+
+ul {
+  padding: 0px;
+}
+
 :root {
   --AIMblue: #4353A3;
   --darkBlue: #38416D;
@@ -31,12 +39,6 @@ body {
 .canvasCard {
   width:600px;
   overflow: hidden;
-}
-
-.borderGroup {
-  border: solid 1px black;
-  width: fit-content;
-  margin: auto;
 }
 
 p {
@@ -181,12 +183,13 @@ button:hover {
   <div class="containment">
   <div class="displayGroup">
 <div class="borderGroup">
-<form name="Emotional Stress Options" onsubmit="return false" onchange="calculate(this)">
+  <ul>
+<li><form name="Emotional Stress Options" onsubmit="return false" onchange="calculate(this)">
  <fieldset>
   <legend style="display:none;"></legend>
    <div class="formContainer">
     <div class="checkContainer">
-        <h3>When I feel stressed I tend to</h3><h3 class="floaty">NO / YES</h3>
+        <h3>Characteristics Group A</h3><h3 class="floaty">NO / YES</h3>
     </div>
   <!--Check 1-->
      <div class="checkContainer">
@@ -260,11 +263,14 @@ button:hover {
  <script>
   calculate(document.forms.pricecalc);
  </script>
-</form>
-<form name="Behavioural Stress Options" onsubmit="return false" onchange="calculate(this)">
+</form></li>
+<li><form name="Behavioural Stress Options" onsubmit="return false" onchange="calculate(this)">
  <fieldset>
   <legend style="display:none;"></legend>
    <div class="formContainer">
+        <div class="checkContainer">
+        <h3>Characteristics Group A</h3><h3 class="floaty">NO / YES</h3>
+    </div>
   <!--Check 1-->
      <div class="checkContainer">
      <p label="question1">Rely on medication, drugs or alcohol to cope</p>
@@ -339,7 +345,8 @@ button:hover {
   calculate(document.forms.pricecalc);
     calculate2(document.forms.answerscalc);
  </script>
-</form>
+</form></li>
+</ul>
 </div>
 <button onclick="submitNewData(); formOne()">Submit
       </button>
@@ -363,53 +370,34 @@ button:hover {
 
 <script>
   
-//first variable defines what the points are labeled with
-var labels = ["Emotional stress", "Behavioural stress"];
+var labels = ["Italy", "France", "Spain", "USA"];
 //second variable is our array - this is what we need to push our values to.
-let yValues = [0, 0];
+let yValues = [1, 2, 3, 4];
 //Test variable to change the map area from that horrible grey
-
-
-
+var areaColor = "#1A464250"
+//Last variable sets colours for points
+var barColors = [
+  "#b91d47",
+  "#00aba9",
+  "#2b5797",
+  "#e8c3b9"
+];
 const chart = new Chart("myChart", {
-  type: "pie",
+  type: "radar",
   data: {
     labels,
     datasets: [{
-      backgroundColor: [
-      '#38416D',
-      '#5DC8B9' //TODO: connect colour of area and 'on' toggle in inputs
-    ],
+      backgroundColor: areaColor,
       data: yValues,
       label: 'Values',
     }],
   },
-options: {
+ options: {
+    title: {
+      display: true,
+      text: "Reflection",
+    },
     responsive: true,
-    plugins: {
-      tooltip: {
-        displayColors: false,
-      },
-      legend: {
-        position: 'top',
-        labels: {
-          color: 'black',
-                    // This more specific font property overrides the global property
-                    font: {
-                        size: 20,
-                    }
-                },
-      },
-      title: {
-        display: true,
-        text: 'Reflections',
-         color: 'black',
-                    // This more specific font property overrides the global property
-                    font: {
-                        size: 20,
-                    }
-      }
-    }
   },
 });
 

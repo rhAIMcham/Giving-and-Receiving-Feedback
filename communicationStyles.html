@@ -1284,12 +1284,14 @@ var barColors = [
   "#dace90",
   "#68c75c"
 ];
+
+
 const chart = new Chart("communicationStyle", {
-  type: "radar",
+  type: "doughnut",
   data: {
     labels,
     datasets: [{
-      backgroundColor: areaColor,
+      backgroundColor: barColors,
       data: yValues,
       label: 'Values',
     }],
@@ -1300,20 +1302,6 @@ const chart = new Chart("communicationStyle", {
       text: "Reflection",
     },
     responsive: true,
-    scales: {
-      r: {
-        min: 0,
-        max: 20,
-        ticks: {
-          stepSize: 4  // Optional: sets tick marks every 5 units
-        },
-        pointLabels: {
-    font: {
-      size: 20
-    }
-  },
-      }
-    },
     plugins: {
     legend: {
         position: 'top',

@@ -78,7 +78,11 @@ li {
   text-align: center;
   justify-content: center;
   display: flex;
-  max-width: 600px;
+  max-width: 800px;
+}
+
+.resultsGroup > p {
+  text-align: center;
 }
 
 .switch {
@@ -166,6 +170,9 @@ fieldset {
     border: none;
 }
 
+#displayed > p {
+  text-align: center;
+}
 .submit-button {
   font-family: "IBM Plex Sans", sans-serif;
   margin: 20px auto;
@@ -196,7 +203,7 @@ fieldset {
 
 /* Text Navigation Buttons */
 .navigation {
-    margin: 20px 0;
+    margin: 5px 0 20px 0;
     display: flex;
     justify-content: center;
     gap: 10px;
@@ -287,14 +294,17 @@ fieldset {
 </head>
 <body>
 <!-- Navigation buttons -->
+ <div id="displayed">
+<p>Use these buttons to navigate through the four quiz screens.</p>
 <div class="navigation">
-    <button class="nav-button active" onclick="goToSlide(1)">Blue/Analytical</button>
-    <button class="nav-button" onclick="goToSlide(2)">Red/Driver</button>
-    <button class="nav-button" onclick="goToSlide(3)">Yellow/Expressive</button>
-    <button class="nav-button" onclick="goToSlide(4)">Green/Amiable</button>
+    <button class="nav-button active" onclick="goToSlide(1)">Style 1</button>
+    <button class="nav-button" onclick="goToSlide(2)">Style 2</button>
+    <button class="nav-button" onclick="goToSlide(3)">Style 3</button>
+    <button class="nav-button" onclick="goToSlide(4)">Style 4</button>
     <button class="nav-button" onclick="goToSlide(5)">Submit & Results</button>
 </div>
-
+<p>Once you have selected all the options that relate to you, click 'Submit & View Results' to
+   reveal your communication style.</p></div>
 <!-- Arrow navigation -->
 <div class="arrow-nav">
     <button class="arrow-button" id="prevBtn" onclick="previousSlide()">← Previous</button>
@@ -306,12 +316,12 @@ fieldset {
     <div class="imgs_slides" id="slideContainer">
         <!-- Slide 1: Blue/Analytical -->
         <div class="CardSlide">
-          <form name="blueAnalytical" onsubmit="return false" onchange="calculateBlue(this)">
+          <form name="s1Analytical" onsubmit="return false" onchange="calculateStyle1(this)">
             <fieldset>
               <legend style="display:none;"></legend>
               <div class="formContainer">
                 <div class="checkContainer">
-                    <h3>Style I – Blue/Analytical</h3><h3 class="floaty">NO / YES</h3>
+                    <h3>Style 1</h3><h3 class="floaty">NO / YES</h3>
                 </div>
               <!--Check 1-->
                 <div class="checkContainer">
@@ -541,12 +551,12 @@ fieldset {
         
         <!-- Slide 2: Red/Driver -->
         <div class="CardSlide">
-          <form name="redDriver" onsubmit="return false" onchange="calculateRed(this)">
+          <form name="s2Driver" onsubmit="return false" onchange="calculateStyle2(this)">
             <fieldset>
               <legend style="display:none;"></legend>
               <div class="formContainer">
                 <div class="checkContainer">
-                    <h3>Style II – Red/Driver</h3><h3 class="floaty">NO / YES</h3>
+                    <h3>Style 2</h3><h3 class="floaty">NO / YES</h3>
                 </div>
              <!--Check 1-->
                       <div class="checkContainer">
@@ -776,12 +786,12 @@ fieldset {
 
         <!-- Slide 3: Yellow/Expressive -->
         <div class="CardSlide">
-          <form name="yellowExpressive" onsubmit="return false" onchange="calculateYellow(this)">
+          <form name="s3Expressive" onsubmit="return false" onchange="calculateStyle3(this)">
            <fieldset>
             <legend style="display:none;"></legend>
              <div class="formContainer">
               <div class="checkContainer">
-                  <h3>Style III – Yellow/Expressive</h3><h3 class="floaty">NO / YES</h3>
+                  <h3>Style 3</h3><h3 class="floaty">NO / YES</h3>
               </div>
             <!--Check 1-->
                           <div class="checkContainer">
@@ -1011,12 +1021,12 @@ fieldset {
 
         <!-- Slide 4: Green/Amiable -->
         <div class="CardSlide">
-          <form name="greenAmiable" onsubmit="return false" onchange="calculateGreen(this)">
+          <form name="s4Amiable" onsubmit="return false" onchange="calculateStyle4(this)">
            <fieldset>
             <legend style="display:none;"></legend>
              <div class="formContainer">
                   <div class="checkContainer">
-                  <h3>Style IV – Green/Amiable</h3><h3 class="floaty">NO / YES</h3>
+                  <h3>Style 4</h3><h3 class="floaty">NO / YES</h3>
               </div>
             <!--Check 1-->
                           <div class="checkContainer">
@@ -1332,10 +1342,10 @@ document.addEventListener('keydown', function(event) {
 var labels = ["Analytical", "Driver", "Expressive", "Amiable"];
 let yValues = [1, 2, 3, 4];
 var barColors = [
-  "#4353A3",
-  "#AF4510",
-  "#dace90",
-  "#68c75c"
+  "#E99283",
+  "#006057",
+  "#D19BDC",
+  "#000066"
 ];
 
 const chart = new Chart("communicationStyle", {
@@ -1378,7 +1388,7 @@ const chart = new Chart("communicationStyle", {
 });
 
 // Form calculation functions
-function calculateBlue(form) {
+function calculateStyle1(form) {
    var answers = 0;
    if (form.elements.one.checked) answers += 1;
    if (form.elements.two.checked) answers += 1;
@@ -1403,7 +1413,7 @@ function calculateBlue(form) {
    form.elements.result.value = answers;
 }
 
-function calculateRed(form) {
+function calculateStyle2(form) {
    var answers = 0;
    if (form.elements.one.checked) answers += 1;
    if (form.elements.two.checked) answers += 1;
@@ -1428,7 +1438,7 @@ function calculateRed(form) {
    form.elements.result.value = answers;
 }
 
-function calculateYellow(form) {
+function calculateStyle3(form) {
    var answers = 0;
    if (form.elements.one.checked) answers += 1;
    if (form.elements.two.checked) answers += 1;
@@ -1453,7 +1463,7 @@ function calculateYellow(form) {
    form.elements.result.value = answers;
 }
 
-function calculateGreen(form) {
+function calculateStyle4(form) {
    var answers = 0;
    if (form.elements.one.checked) answers += 1;
    if (form.elements.two.checked) answers += 1;
@@ -1503,14 +1513,16 @@ function formOne() {
   var g = Number(document.getElementById("numericalResultFour").value);
   
   console.log(a, e, f, g);
-  b.innerHTML = 'Your communication style scores: Analytical: ' + a + ', Driver: ' + e + ', Expressive: ' + f + ', Amiable: ' + g + '. Review your chart above to see your profile.';
+  b.innerHTML = '<span style="font-size: 20px;">Your communication style scores:<ul><li>Analytical: ' + a + '</li><li>Driver: ' + e + '</li><li>Expressive: ' + f + '</li><li>Amiable: ' + g + '.</li></ul><br>Did your result surprise you? Retake this quiz as many times as you like by clicking back to assessment, and then use the buttons below to learn more about your communication style!';
 }
 
 function changeDisplay() {
     let x = document.getElementById("CardHolder");
     let y = document.getElementById("graphDisp");
+    let z = document.getElementById("displayed");
     x.classList.toggle('hidden');
     y.classList.toggle('hidden');
+    z.classList.toggle('hidden');
     currentSlide = 1;
     updateSlider();
     updateButtons();

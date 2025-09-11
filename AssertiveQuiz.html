@@ -6,5 +6,83 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
-<title>Reasons not to give feedback</title>
+<title>Assertive Quiz</title>
 <style>
+    :root {
+        --AIMblue: #4353A3;
+        --darkBlue: #38416D;
+        --teal: #5DC8B9;
+        --cream: #F1EEDE;
+        --grey: #e7e9ec;
+        --rust: #AF4510;
+        --navy: #12195C;
+        --white: #ffffff;
+        --lightBlue: #AEBAE4;
+    }
+
+    body {
+        font-family: "IBM Plex Sans", sans-serif;
+    }
+    </style>
+</head>
+<body>
+    <div>
+        <p>Hello</p>
+            <div class="question1">
+                <label for="">Select1</label>
+                <input type="radio" name="q1" class="A">1
+                <input type="radio" name="q1" class="B">2
+                <input type="radio" name="q1" class="C">3
+                <input type="radio" name="q1" class="D">4
+            </div>
+            <div class="question2">
+                <label for="">Select2</label>
+                <input type="radio" name="q2" class="A">1
+                <input type="radio" name="q2" class="B">2
+                <input type="radio" name="q2" class="C">3
+                <input type="radio" name="q2" class="D">4
+            </div>
+            <div class="question3">
+                <label for="">Select3</label>
+                <input type="radio" name="q3" class="A">1
+                <input type="radio" name="q3" class="B">2
+                <input type="radio" name="q3" class="C">3
+                <input type="radio" name="q3" class="D">4
+            </div>
+            <div class="question4">
+                <label for="">Select4</label>
+                <input type="radio" name="q4" class="A">1
+                <input type="radio" name="q4" class="B">2
+                <input type="radio" name="q4" class="C">3
+                <input type="radio" name="q4" class="D">4
+            </div>
+        <button onclick="processQuestion()">Click me</button>
+    </div>
+</body>
+<script>
+
+let aCount = 0;
+let bCount = 0;
+let cCount = 0;
+let dCount = 0;
+
+function processQuestion() {
+    
+
+}
+    if (document.querySelector(".A").checked) {
+        aCount += 1;
+    }
+    if (document.querySelector(".food2").checked) {
+        points += 2;
+    }
+    if (document.querySelector(".food3").checked) {
+        points += 3;
+    }
+    if (document.querySelector(".food4").checked) {
+        points += 4;
+    }
+    if (document.querySelector(".food5").checked) {
+        points += 5;
+    }
+</script>

@@ -8,6 +8,12 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
 <title>Assertive Quiz</title>
 <style>
+    .checkContainer {
+        display: flex;
+        align-items: center;
+        margin: 15px 0;
+    }
+    
     :root {
         --AIMblue: #4353A3;
         --darkBlue: #38416D;
@@ -22,67 +28,489 @@
 
     body {
         font-family: "IBM Plex Sans", sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: var(--cream);
     }
-    </style>
+
+    .quiz-container {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: var(--white);
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .slide-container {
+        display: flex;
+        transition: transform 0.3s ease;
+        width: 600%; /* 6 slides * 100% */
+    }
+
+    .slide {
+        width: 16.666%; /* 100% / 6 slides */
+        flex-shrink: 0;
+        padding: 30px;
+        box-sizing: border-box;
+    }
+
+    .slide h2 {
+        color: var(--AIMblue);
+        margin-bottom: 25px;
+        text-align: center;
+    }
+
+    .checkContainer {
+        display: flex;
+        align-items: flex-start;
+        margin: 20px 0;
+        padding: 15px;
+        background-color: var(--grey);
+        border-radius: 8px;
+    }
+
+    .checkContainer p {
+        margin: 0;
+        margin-right: 15px;
+        flex-grow: 1;
+        font-size: 16px;
+        line-height: 1.4;
+    }
+
+    input[type="checkbox"] {
+        margin: 0;
+        transform: scale(1.2);
+        cursor: pointer;
+    }
+
+    .navigation {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 30px;
+        background-color: var(--grey);
+    }
+
+    .nav-buttons {
+        display: flex;
+        gap: 10px;
+    }
+
+    .nav-button {
+        width: 40px;
+        height: 40px;
+        border: 2px solid var(--AIMblue);
+        background-color: var(--white);
+        color: var(--AIMblue);
+        border-radius: 50%;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+
+    .nav-button:hover {
+        background-color: var(--lightBlue);
+    }
+
+    .nav-button.active {
+        background-color: var(--AIMblue);
+        color: var(--white);
+    }
+
+    .arrow-button {
+        padding: 10px 20px;
+        background-color: var(--AIMblue);
+        color: var(--white);
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+
+    .arrow-button:hover:not(:disabled) {
+        background-color: var(--darkBlue);
+    }
+
+    .arrow-button:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+
+    .submit-button {
+        display: none;
+        padding: 15px 30px;
+        background-color: var(--teal);
+        color: var(--white);
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: bold;
+        margin: 20px auto;
+    }
+
+    .submit-button:hover {
+        background-color: #4db5a5;
+    }
+
+    #results {
+        margin: 20px;
+        padding: 20px;
+        background-color: var(--grey);
+        border-radius: 8px;
+        display: none;
+    }
+
+    #results ul {
+        list-style-type: none;
+        padding-left: 20px;
+    }
+
+    #results li {
+        margin: 10px 0;
+        font-size: 18px;
+    }
+
+    .progress-bar {
+        height: 6px;
+        background-color: var(--grey);
+        margin: 0 30px 20px;
+        border-radius: 3px;
+        overflow: hidden;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background-color: var(--teal);
+        transition: width 0.3s ease;
+        width: 16.666%; /* Start at slide 1 */
+    }
+</style>
 </head>
 <body>
-    <div>
-        <p>Hello</p>
-            <div class="question1">
-                <label for="">Select1</label>
-                <input type="radio" name="q1" class="A">1
-                <input type="radio" name="q1" class="B">2
-                <input type="radio" name="q1" class="C">3
-                <input type="radio" name="q1" class="D">4
-            </div>
-            <div class="question2">
-                <label for="">Select2</label>
-                <input type="radio" name="q2" class="A">1
-                <input type="radio" name="q2" class="B">2
-                <input type="radio" name="q2" class="C">3
-                <input type="radio" name="q2" class="D">4
-            </div>
-            <div class="question3">
-                <label for="">Select3</label>
-                <input type="radio" name="q3" class="A">1
-                <input type="radio" name="q3" class="B">2
-                <input type="radio" name="q3" class="C">3
-                <input type="radio" name="q3" class="D">4
-            </div>
-            <div class="question4">
-                <label for="">Select4</label>
-                <input type="radio" name="q4" class="A">1
-                <input type="radio" name="q4" class="B">2
-                <input type="radio" name="q4" class="C">3
-                <input type="radio" name="q4" class="D">4
-            </div>
-        <button onclick="processQuestion()">Click me</button>
-    </div>
-</body>
-<script>
+    <div class="quiz-container">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        
+        <form name="assertive" onsubmit="return false" onchange="calculateStyle1(this)">
+            <div class="slide-container" id="slideContainer">
+                <!-- Slide 1 -->
+                <div class="slide">
+                    <h3>When communicating my anger with others….</h3>
+                    <div class="checkContainer">
+                        <p>I push my feelings away rather than express them to others.</p>
+                        <input class="inputOne" type="checkbox" name="one" autocomplete="off">
+                    </div>
+                    <div class="checkContainer">
+                        <p>I tend to yell or swear.</p>
+                        <input class="inputOne" type="checkbox" name="two" autocomplete="off">
+                    </div>
+                    <div class="checkContainer">
+                        <p>I tend to be sarcastic, I express my feelings using my body language or actions, like slamming doors.</p>
+                        <input class="inputOne" type="checkbox" name="three" autocomplete="off">
+                    </div>
+                    <div class="checkContainer">
+                        <p>I believe I have a right to express my opinions and emotions.</p>
+                        <input class="inputOne" type="checkbox" name="four" autocomplete="off">
+                    </div>
+                </div>
 
+                <!-- Slide 2 -->
+                <div class="slide">
+                    <h3>When having a disagreement with someone….</h3>
+                    <div class="checkContainer">
+                        <p>I fear that expressing myself will cause others to be angry with me or not like me.</p>
+                        <input class="inputOne" type="checkbox" name="five" autocomplete="off">
+                    </div>
+                    <div class="checkContainer">
+                        <p>I am often concerned with getting my own way, regardless of how it impacts others.</p>
+                        <input class="inputOne" type="checkbox" name="six" autocomplete="off">
+                    </div>
+                    <div class="checkContainer">
+                        <p>I tend to give people the silent treatment.</p>
+                        <input class="inputOne" type="checkbox" name="seven" autocomplete="off">
+                    </div>
+                    <div class="checkContainer">
+                        <p>I am able to express my opinions and emotions clearly and honestly during the discussion.</p>
+                        <input class="inputOne" type="checkbox" name="eight" autocomplete="off">
+                    </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="slide">
+                    <h3>If someone in the group suggests doing something don’t want to do….</h3>
+                    <div class="checkContainer">
+                        <p>I often go along with it because I don’t want to upset others or be different.</p>
+                        <input class="inputOne" type="checkbox" name="nine" autocomplete="off">
+                    </div>
+                    <div class="checkContainer">
+                        <p>I say no; I have been described as having a ‘my way or the highway’ attitude.</p>
+                        <input class="inputOne" type="checkbox" name="ten" autocomplete="off">
+                    </div>
+                    <div class="checkContainer">
+                        <p>I fear that expressing myself will cause others to be angry with me or stop liking me, so I try to get my message across in more subtle ways.</p>
+                        <input class="inputOne" type="checkbox" name="eleven" autocomplete="off">
+                    </div>
+                    <div class="checkContainer">
+                        <p>I listen closely to others to understand their perspective then negotiate rather than focusing on getting my needs met.</p>
+                        <input class="inputOne" type="checkbox" name="twelve" autocomplete="off">
+                    </div>
+                </div>
+
+                <!-- Slide 4 -->
+                <div class="slide">
+                    <h3>A coworker takes credit for work that you created. How do you handle the situation?</h3>
+                    <div class="checkContainer">
+                        <p>Don’t say anything. You knowing the truth is more important than accolades.</p>
+                        <input class="inputOne" type="checkbox" name="thirteen" autocomplete="off">
+                    </div>
+                    <div class="checkContainer">
+                        <p>Call them out in front of the team.</p>
+                        <input class="inputOne" type="checkbox" name="fourteen" autocomplete="off">
+                    </div>
+                    <div class="checkContainer">
+                        <p>Let it happen but tell all other coworkers the truth.</p>
+                        <input class="inputOne" type="checkbox" name="fifteen" autocomplete="off">
+                    </div>
+                    <div class="checkContainer">
+                        <p>Speak with them privately after the meeting about their actions.</p>
+                        <input class="inputOne" type="checkbox" name="sixteen" autocomplete="off">
+                    </div>
+                </div>
+
+                <!-- Slide 5 -->
+                <div class="slide">
+                    <h3>Your direct report misses their deadline for the third time. How do you approach them about it?</h3>
+                    <div class="checkContainer">
+                        <p>Don’t mention it, they will eventually figure it out.</p>
+                        <input class="inputOne" type="checkbox" name="seventeen" autocomplete="off">
+                    </div>
+                    <div class="checkContainer">
+                        <p>Clarify in the team meeting that it is the reason for the project delay.</p>
+                        <input class="inputOne" type="checkbox" name="eighteen" autocomplete="off">
+                    </div>
+                    <div class="checkContainer">
+                        <p>Make detailed notes and address it in their mid-year review.</p>
+                        <input class="inputOne" type="checkbox" name="nineteen" autocomplete="off">
+                    </div>
+                    <div class="checkContainer">
+                        <p>Stress the importance of timeliness and ask how you can support them.</p>
+                        <input class="inputOne" type="checkbox" name="twenty" autocomplete="off">
+                    </div>
+                </div>
+
+                <!-- Slide 6 -->
+                <div class="slide">
+                    <h3>You’re struggling with a task at work. How do you ask your line manager for help?</h3>
+                    <div class="checkContainer">
+                        <p>"It’s going great” to avoid looking incompetent.</p>
+                        <input class="inputOne" type="checkbox" name="twentyone" autocomplete="off">
+                    </div>
+                    <div class="checkContainer">
+                        <p>“I have too much on my plate right now!”</p>
+                        <input class="inputOne" type="checkbox" name="twentytwo" autocomplete="off">
+                    </div>
+                    <div class="checkContainer">
+                        <p>“I need help with this. I don’t know what to do” to encourage them to complete it for you.</p>
+                        <input class="inputOne" type="checkbox" name="twentythree" autocomplete="off">
+                    </div>
+                    <div class="checkContainer">
+                        <p>“I can’t get the hang of this new procedure; can we review it together again?”</p>
+                        <input class="inputOne" type="checkbox" name="twentyfour" autocomplete="off">
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 30px;">
+                        <button class="submit-button" id="submitButton" onclick="formOne()">
+                            Submit & View Results
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="navigation">
+            <button class="arrow-button" id="prevBtn" onclick="previousSlide()">← Previous</button>
+            
+            <div class="nav-buttons">
+                <button class="nav-button active" onclick="goToSlide(1)">1</button>
+                <button class="nav-button" onclick="goToSlide(2)">2</button>
+                <button class="nav-button" onclick="goToSlide(3)">3</button>
+                <button class="nav-button" onclick="goToSlide(4)">4</button>
+                <button class="nav-button" onclick="goToSlide(5)">5</button>
+                <button class="nav-button" onclick="goToSlide(6)">6</button>
+            </div>
+            
+            <button class="arrow-button" id="nextBtn" onclick="nextSlide()">Next →</button>
+        </div>
+    </div>
+
+    <!-- Results Display -->
+    <div id="results"></div>
+
+<script>
 let aCount = 0;
 let bCount = 0;
 let cCount = 0;
 let dCount = 0;
 
-function processQuestion() {
-    
+// Current slide tracking
+let currentSlide = 1;
+const totalSlides = 6;
 
+function calculateStyle1(form) {
+   // Reset counts first
+   aCount = 0;
+   bCount = 0;
+   cCount = 0;
+   dCount = 0;
+   
+   if (form.elements.one.checked) aCount += 1;
+   if (form.elements.two.checked) bCount += 1;
+   if (form.elements.three.checked) cCount += 1;
+   if (form.elements.four.checked) dCount += 1;
+   if (form.elements.five.checked) aCount += 1;
+   if (form.elements.six.checked) bCount += 1;
+   if (form.elements.seven.checked) cCount += 1;
+   if (form.elements.eight.checked) dCount += 1;
+   if (form.elements.nine.checked) aCount += 1;
+   if (form.elements.ten.checked) bCount += 1;
+   if (form.elements.eleven.checked) cCount += 1;
+   if (form.elements.twelve.checked) dCount += 1;
+   if (form.elements.thirteen.checked) aCount += 1;
+   if (form.elements.fourteen.checked) bCount += 1;
+   if (form.elements.fifteen.checked) cCount += 1;
+   if (form.elements.sixteen.checked) dCount += 1;
+   if (form.elements.seventeen.checked) aCount += 1;
+   if (form.elements.eighteen.checked) bCount += 1;
+   if (form.elements.nineteen.checked) cCount += 1;
+   if (form.elements.twenty.checked) dCount += 1;
+   if (form.elements.twentyone.checked) aCount += 1;
+   if (form.elements.twentytwo.checked) bCount += 1;
+   if (form.elements.twentythree.checked) cCount += 1;
+   if (form.elements.twentyfour.checked) dCount += 1;
 }
-    if (document.querySelector(".A").checked) {
-        aCount += 1;
+
+function formOne() {
+    const results = document.getElementById("results");
+    results.style.display = "block";
+    let resultStyle = Math.max(aCount, bCount, cCount, dCount);
+    console.log(resultStyle);
+    if (resultStyle === aCount) {
+        results.innerHTML = `Your result was Passive! <br><br>You may be a passive communicator. 
+        You are generally quiet, reserved and less likely to openly express your feelings. 
+        You prefer to be supportive and defer decision making, giving feedback
+         in a wishy-washy way that has little impact on others. You may be overly apologetic, 
+         putting others’ wishes before your own, minimising your self-worth while being taken advantage of.`;
     }
-    if (document.querySelector(".food2").checked) {
-        points += 2;
+    else if (resultStyle === bCount) {
+        results.innerHTML = `Your result was Aggressive. <br><br>You may be an aggressive communicator. 
+        You tend to be overtly direct and dominant, often with little consideration of others. 
+        You may come across as demanding or attacking which puts others on the defensive. 
+        By refusing to consider others' needs or ideas you can create unnecessary conflict, damaging relationships and 
+        creating a hostile environment despite achieving some immediate goals. `;
     }
-    if (document.querySelector(".food3").checked) {
-        points += 3;
+    else if (resultStyle === cCount) {
+        results.innerHTML = `Your result was passive aggressive. <br><br>You may be a passive-aggressive communicator. 
+        You may struggle to communicate the strong emotions you feel, leading to sarcastic comments, 
+        silent treatments or procrastination. This lack of congruency can confuse or frustrate the 
+        receiver who is required to interpret your actions in order to understand what is actually required of them. 
+        They may feel manipulated which can lead to relationship breakdowns. You may become equally frustrated by 
+        not being able to get your message across clearly.`;
     }
-    if (document.querySelector(".food4").checked) {
-        points += 4;
+    else {
+        results.innerHTML = `Your result was Assertive. <br><br>You may be an assertive communicator. 
+        You find ease in expressing yourself clearly, directly, and forcefully while communicating respect for others
+         by listening to them and by not attacking them personally. You concentrate on building trust, confidence and 
+         win-win situations which creates honest and respectful relationships.`;
     }
-    if (document.querySelector(".food5").checked) {
-        points += 5;
+    
+    // Scroll to results
+    results.scrollIntoView({ behavior: 'smooth' });
+}
+
+// Slide navigation functions
+function goToSlide(slideNumber) {
+    currentSlide = slideNumber;
+    updateSlider();
+    updateButtons();
+    updateArrowButtons();
+    updateProgressBar();
+    updateSubmitButton();
+}
+
+function nextSlide() {
+    if (currentSlide < totalSlides) {
+        currentSlide++;
+        updateSlider();
+        updateButtons();
+        updateArrowButtons();
+        updateProgressBar();
+        updateSubmitButton();
     }
+}
+
+function previousSlide() {
+    if (currentSlide > 1) {
+        currentSlide--;
+        updateSlider();
+        updateButtons();
+        updateArrowButtons();
+        updateProgressBar();
+        updateSubmitButton();
+    }
+}
+
+function updateSlider() {
+    const slideContainer = document.getElementById('slideContainer');
+    const translateX = -(currentSlide - 1) * (100 / 6); // Each slide is 100/6% width
+    slideContainer.style.transform = `translateX(${translateX}%)`;
+}
+
+function updateButtons() {
+    const buttons = document.querySelectorAll('.nav-button');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    buttons[currentSlide - 1].classList.add('active');
+}
+
+function updateArrowButtons() {
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    
+    prevBtn.disabled = (currentSlide === 1);
+    nextBtn.disabled = (currentSlide === totalSlides);
+}
+
+function updateProgressBar() {
+    const progressFill = document.getElementById('progressFill');
+    const progress = (currentSlide / totalSlides) * 100;
+    progressFill.style.width = `${progress}%`;
+}
+
+function updateSubmitButton() {
+    const submitButton = document.getElementById('submitButton');
+    if (currentSlide === totalSlides) {
+        submitButton.style.display = 'block';
+    } else {
+        submitButton.style.display = 'none';
+    }
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'ArrowLeft') {
+        previousSlide();
+    } else if (event.key === 'ArrowRight') {
+        nextSlide();
+    }
+});
+
+// Initialize
+updateArrowButtons();
+updateProgressBar();
+updateSubmitButton();
 </script>
+</body>
+</html>

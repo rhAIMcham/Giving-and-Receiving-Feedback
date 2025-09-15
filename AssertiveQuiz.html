@@ -30,13 +30,12 @@
         font-family: "IBM Plex Sans", sans-serif;
         margin: 0;
         padding: 20px;
-        background-color: var(--cream);
     }
 
     .quiz-container {
         max-width: 800px;
         margin: 0 auto;
-        background-color: var(--white);
+        background-color: #F1EEDE30;
         border-radius: 12px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         overflow: hidden;
@@ -52,6 +51,7 @@
         width: 16.666%; /* 100% / 6 slides */
         flex-shrink: 0;
         padding: 30px;
+        padding-top: 0;
         box-sizing: border-box;
     }
 
@@ -68,6 +68,11 @@
         padding: 15px;
         background-color: var(--grey);
         border-radius: 8px;
+    }
+
+    .instructions {
+        display: flex;
+        padding-left: 30px;
     }
 
     .checkContainer p {
@@ -120,8 +125,8 @@
 
     .arrow-button {
         padding: 10px 20px;
-        background-color: var(--AIMblue);
-        color: var(--white);
+        background-color: #5DC8B990;
+        color: black;
         border: none;
         border-radius: 6px;
         cursor: pointer;
@@ -131,6 +136,7 @@
 
     .arrow-button:hover:not(:disabled) {
         background-color: var(--darkBlue);
+        color: white;
     }
 
     .arrow-button:disabled {
@@ -156,21 +162,14 @@
     }
 
     #results {
-        margin: 20px;
-        padding: 20px;
-        background-color: var(--grey);
-        border-radius: 8px;
+        max-width: 800px;
+        margin: 15px auto;
+        background-color: var(--white);
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
         display: none;
-    }
-
-    #results ul {
-        list-style-type: none;
-        padding-left: 20px;
-    }
-
-    #results li {
-        margin: 10px 0;
-        font-size: 18px;
+        padding: 10px;
     }
 
     .progress-bar {
@@ -194,7 +193,7 @@
         <div class="progress-bar">
             <div class="progress-fill" id="progressFill"></div>
         </div>
-        
+        <div class="instructions"><p>Select one option from each slide.</p></div>
         <form name="assertive" onsubmit="return false" onchange="calculateStyle1(this)">
             <div class="slide-container" id="slideContainer">
                 <!-- Slide 1 -->
@@ -322,7 +321,7 @@
                         <input class="inputOne" type="checkbox" name="twentyfour" autocomplete="off">
                     </div>
                     
-                    <div style="text-align: center; margin-top: 30px;">
+                    <div>
                         <button class="submit-button" id="submitButton" onclick="formOne()">
                             Submit & View Results
                         </button>
@@ -398,7 +397,10 @@ function formOne() {
     results.style.display = "block";
     let resultStyle = Math.max(aCount, bCount, cCount, dCount);
     console.log(resultStyle);
-    if (resultStyle === aCount) {
+    if (resultStyle < 2) {
+        results.innerHTML = `Please complete the quiz before submitting.`;
+    }
+    else if (resultStyle === aCount) {
         results.innerHTML = `Your result was Passive! <br><br>You may be a passive communicator. 
         You are generally quiet, reserved and less likely to openly express your feelings. 
         You prefer to be supportive and defer decision making, giving feedback

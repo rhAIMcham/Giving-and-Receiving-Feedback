@@ -164,12 +164,12 @@
     #results {
         max-width: 800px;
         margin: 15px auto;
-        background-color: var(--white);
+        background-color: var(--cream);
         border-radius: 12px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         overflow: hidden;
         display: none;
-        padding: 10px;
+        padding: 20px;
     }
 
     .progress-bar {
@@ -395,6 +395,8 @@ function calculateStyle1(form) {
 function formOne() {
     const results = document.getElementById("results");
     results.style.display = "block";
+    let submitButton = document.getElementById("submitButton");
+            submitButton.style.display = 'none';
     let resultStyle = Math.max(aCount, bCount, cCount, dCount);
     console.log(resultStyle);
     if (resultStyle < 2) {
@@ -433,6 +435,14 @@ function formOne() {
     results.scrollIntoView({ behavior: 'smooth' });
 }
 
+function updateSubmitButton() {
+    const submitButton = document.getElementById('submitButton');
+    if (currentSlide === totalSlides) {
+        submitButton.style.display = 'block';
+    } else {
+        submitButton.style.display = 'none';
+    }
+}
 // Slide navigation functions
 function goToSlide(slideNumber) {
     currentSlide = slideNumber;
@@ -489,15 +499,6 @@ function updateProgressBar() {
     const progressFill = document.getElementById('progressFill');
     const progress = (currentSlide / totalSlides) * 100;
     progressFill.style.width = `${progress}%`;
-}
-
-function updateSubmitButton() {
-    const submitButton = document.getElementById('submitButton');
-    if (currentSlide === totalSlides) {
-        submitButton.style.display = 'block';
-    } else {
-        submitButton.style.display = 'none';
-    }
 }
 
 // Keyboard navigation

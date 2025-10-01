@@ -1,0 +1,17 @@
+        :root {
+            --AIMblue: #4353A3;
+            --darkBlue: #38416D;
+            --teal: #5DC8B9;
+            --cream: #F1EEDE;
+            --grey: #e7e9ec;
+            --rust: #AF4510;
+            --navy: #12195C;
+            --white: #ffffff;
+            --lightBlue: #AEBAE4;
+        }
+        
+        body {
+            font-family: "IBM Plex Sans", sans-serif;
+            margin: 0;
+        }
+        

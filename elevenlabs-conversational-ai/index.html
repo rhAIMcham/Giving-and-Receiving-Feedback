@@ -12,15 +12,17 @@
         <title>Giving and Receiving Feedback - Nancy Call</title>
     </head>
     <body>
+        <div class="containment">
         <h1>ElevenLabs Agents</h1>
-        <div style="margin-bottom: 20px;">
+        <div class="btn-bar">
             <button id="startButton" style="padding: 10px 20px; margin: 5px;">Start Conversation</button>
             <button id="stopButton" style="padding: 10px 20px; margin: 5px;" disabled>Stop Conversation</button>
         </div>
-        <div style="font-size: 18px;">
+        <div class="agentStatus">
             <p>Status: <span id="connectionStatus">Disconnected</span></p>
             <p>Agent is <span id="agentStatus">listening</span></p>
         </div>
         <script type="module" src="../script.js"></script>
+        </div>
     </body>
 </html>

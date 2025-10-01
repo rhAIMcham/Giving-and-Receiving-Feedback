@@ -13,6 +13,7 @@
 body {
     font-family: "IBM Plex Sans", sans-serif;
     margin: 0;
+    background: radial-gradient(#12195c, #38416d);
 }
 
 .containment {
@@ -23,10 +24,68 @@ body {
     text-align: center;
 }
 
+/* Add this keyframes definition at the top of your file*/
+@keyframes pulse-border {
+    0% {
+        border-width: 2px;
+        border-color: var(--teal);
+    }
+    50% {
+        border-width: 4px;
+        border-color: rgba(93, 200, 185, 0.4); /* var(--teal) with opacity */
+    }
+    100% {
+        border-width: 2px;
+        
+        border-color: var(--teal);
+    }
+}
+
+/* Update the .imgDisp class*/
+.imgDisp {
+    width: 400px;
+    height: 400px;
+    margin-top: 10rem;
+    border: solid 2px var(--teal);
+    border-radius: 500px;
+    animation: pulse-border 2s ease-in-out infinite; /* Add this line */
+}
+
+img {
+    width: 400px;
+    border-radius: 500px;
+}
+
 .btn-bar {
-    border: red solid 2px;
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    display: flex;
+    flex-direction: column;
 }
 
 .agentStatus {
     border: blue solid 2px;
+    margin: 30px;
+    color: white;
+}
+
+#startButton {
+    background: var(--teal); 
+    font-weight: 400;
+    color: black;  
+}
+
+#stopButton {
+    background: var(--rust);
+    font-weight: 400;
+    color: white;
+}
+
+button {
+    border-radius: 8px;
+    border: none;
+box-shadow: 0px 0px 6px 0px rgba(255,255,255,0.15);
+-webkit-box-shadow: 0px 0px 6px 0px rgba(255,255,255,0.15);
+-moz-box-shadow: 0px 0px 6px 0px rgba(255,255,255,0.15);
 }

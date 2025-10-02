@@ -24,13 +24,14 @@ async function startConversation() {
                 connectionStatus.textContent = 'Disconnected';
                 startButton.disabled = false;
                 stopButton.disabled = true;
+                agentStatus.textContent = 'ready to call';
             },
             onError: (error) => {
                 console.error('Error:', error);
             },
             onModeChange: (mode) => {
                 agentStatus.textContent = mode.mode === 'speaking' ? 'speaking' : 'listening';
-            },
+            },//TODO: edit so if the status is disconnected, says 'ready to call'
         });
     } catch (error) {
         console.error('Failed to start conversation:', error);

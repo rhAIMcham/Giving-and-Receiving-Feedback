@@ -24,7 +24,7 @@ body {
     text-align: center;
 }
 
-/* Add this keyframes definition at the top of your file*/
+/*Add this keyframes definition at the top of your file
 @keyframes pulse-border {
     0% {
         border-width: 2px;
@@ -32,14 +32,14 @@ body {
     }
     50% {
         border-width: 4px;
-        border-color: rgba(93, 200, 185, 0.4); /* var(--teal) with opacity */
+        border-color: rgba(93, 200, 185, 0.4); 
     }
     100% {
         border-width: 2px;
-        
+
         border-color: var(--teal);
     }
-}
+}*/
 
 /* Update the .imgDisp class*/
 .imgDisp {
@@ -65,7 +65,6 @@ img {
 }
 
 .agentStatus {
-    border: blue solid 2px;
     margin: 30px;
     color: white;
 }
@@ -83,9 +82,21 @@ img {
 }
 
 button {
+    padding: 10px;
+    margin: 3px;
+    width: 100px;
     border-radius: 8px;
     border: none;
-box-shadow: 0px 0px 6px 0px rgba(255,255,255,0.15);
--webkit-box-shadow: 0px 0px 6px 0px rgba(255,255,255,0.15);
--moz-box-shadow: 0px 0px 6px 0px rgba(255,255,255,0.15);
+    box-shadow: 0px 0px 6px 0px rgba(255,255,255,0.15);
+    -webkit-box-shadow: 0px 0px 6px 0px rgba(255,255,255,0.15);
+    -moz-box-shadow: 0px 0px 6px 0px rgba(255,255,255,0.15);
+    cursor: pointer;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: var(--grey) !important; /* Override any specific button colors */
+    color: #666 !important;
+    box-shadow: none;
 }

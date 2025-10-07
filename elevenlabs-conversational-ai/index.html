@@ -4,26 +4,44 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="style.css">
-           <link rel="icon" type="image/x-icon" href="/elevenlabs-conversational-ai/Assets/user-headset.svg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
-   
+        <link rel="icon" type="image/x-icon" href="/elevenlabs-conversational-ai/Assets/user-headset.svg">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
         <title>Giving and Receiving Feedback - Nancy Call</title>
     </head>
     <body>
         <div class="containment">
             <div class="imgDisp"><img src="Assets/nancy_headshot_export.png"></div>
-        <!--<h1>Calling Nancy</h1>-->
-        <div class="btn-bar">
-            <button id="startButton" >Start call</button>
-            <button id="stopButton"  disabled>Leave call</button>
-        </div>
-        <div class="agentStatus">
-            <p>Nancy is <span id="agentStatus">ready to call</span></p>
-            <p>Status: <span id="connectionStatus">Disconnected</span></p>
-        </div>
-        <script type="module" src="../script.js"></script>
+            <!--<h1>Calling Nancy</h1>-->
+            <div class="btn-bar">
+                <button id="startButton">Start call</button>
+                <button id="stopButton" disabled>Leave call</button>
+            </div>
+            <div class="agentStatus">
+                <p>Nancy is <span id="agentStatus">ready to call</span></p>
+                <p>Status: <span id="connectionStatus">Disconnected</span></p>
+            </div>
+            <!-- Chat Interface
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages"></div>
+                <div class="chat-input-wrapper">
+                    <input 
+                        type="text" 
+                        id="chatInput" 
+                        placeholder="Type a message to Nancy..." 
+                        disabled
+                    />
+                    <button id="sendButton" disabled>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </div>
+            </div> -->
+
+            <script type="module" src="../script.js"></script>
         </div>
     </body>
 </html>

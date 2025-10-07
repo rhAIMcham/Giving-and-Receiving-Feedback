@@ -14,7 +14,7 @@ async function startConversation() {
 
         // Start the conversation
         conversation = await Conversation.startSession({
-            agentId: 'agent_3101k5amn8nnfx4vavm2a5aydwqe', // Replace with your agent ID
+            agentId: 'agent_9101k6hen56henmsmk66x8pvvabf', // Replace with your agent ID
             onConnect: () => {
                 connectionStatus.textContent = 'Connected';
                 startButton.disabled = true;

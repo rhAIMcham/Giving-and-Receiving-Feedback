@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css">
+           <link rel="icon" type="image/x-icon" href="/elevenlabs-conversational-ai/Assets/user-headset.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+   
+        <title>Giving and Receiving Feedback - Nancy Call</title>
+    </head>
+    <body>
+        <div class="containment">
+            <div class="imgDisp"><img src="Assets/nancy_headshot_export.png"></div>
+        <!--<h1>Calling Nancy</h1>-->
+        <div class="btn-bar">
+            <button id="startButton" >Start call</button>
+            <button id="stopButton"  disabled>Leave call</button>
+        </div>
+        <div class="agentStatus">
+            <p>Nancy is <span id="agentStatus">ready to call</span></p>
+            <p>Status: <span id="connectionStatus">Disconnected</span></p>
+        </div>
+        <script type="module" src="../script.js"></script>
+        </div>
+    </body>
+</html>

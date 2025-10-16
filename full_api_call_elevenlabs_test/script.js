@@ -14,7 +14,7 @@ const sendButton = document.getElementById('sendButton');
 const btnBar = document.getElementById('btnBar');
 
 let conversation;
-let conversationMode = null; // 'voice' or 'text'
+let conversationMode = null;
 
 // Mode selection handlers
 voiceButton.addEventListener('click', () => {
@@ -34,15 +34,12 @@ textButton.addEventListener('click', () => {
 
 async function getSignedUrl() {
     try {
-        // Test server connection first
-        const testResponse = await fetch('http://localhost:3001/test');
-        console.log('Test connection successful');
-
         const response = await fetch('http://localhost:3001/api/get-signed-url');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
+        console.log('Signed URL obtained');
         return data.signedUrl;
     } catch (error) {
         console.error('Connection error:', error);
@@ -52,33 +49,29 @@ async function getSignedUrl() {
 }
 
 async function sendTextMessage() {
-    const textInput = document.getElementById('textInput');
     const message = textInput.value.trim();
     
     if (!message || !conversation) return;
 
     try {
-        // Check if conversation is still connected
-        if (!conversation || conversation.status === 'disconnected') {
-            console.error('Conversation is not connected');
-            addMessage('Error: Connection lost. Please refresh and try again.', false);
-            return;
-        }
-
+        console.log('Sending message:', message);
+        
         // Display user message
         addMessage(message, true);
         
         // Clear input
         textInput.value = '';
         
-        // Send to agent using sendUserMessage (non-blocking)
-        conversation.sendUserMessage({
+        // Send to agent - use the correct method
+        await conversation.sendUserMessage({
             text: message
         });
         
+        console.log('Message sent successfully');
+        
     } catch (error) {
         console.error('Failed to send message:', error);
-        addMessage('Error: Failed to send message', false);
+        addMessage('Error: Failed to send message - ' + error.message, false);
     }
 }
 
@@ -93,8 +86,8 @@ function addMessage(text, isUser = false) {
 async function startConversation() {
     try {
         const signedUrl = await getSignedUrl();
+        console.log('Starting conversation in mode:', conversationMode);
 
-        // Initialize conversation based on mode
         if (conversationMode === 'voice') {
             // Request audio permission for voice mode
             await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -122,19 +115,25 @@ async function startConversation() {
                 }
             });
         } else if (conversationMode === 'text') {
-            // Initialize text-only conversation with required overrides and message handler
+            // For text mode, we need to create a "dummy" audio context
+            // to satisfy the SDK but never actually use it
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
             conversation = await Conversation.startSession({
                 signedUrl,
-                overrides: {
-                    conversation: {
-                        textOnly: true,  // Enable text-only mode
+                // Create a silent audio stream to prevent worklet errors
+                audio: {
+                    input: {
+                        // Provide a silent stream instead of user microphone
+                        stream: audioContext.createMediaStreamDestination().stream
                     },
-                    agent: {
-                        firstMessage: null  // Prevent auto-disconnect from first message
+                    output: {
+                        // Mute output
+                        muted: true
                     }
                 },
                 onConnect: () => {
-                    console.log('Text conversation connected');
+                    console.log('✓ Text conversation connected');
                     connectionStatus.textContent = 'Connected';
                     textInput.disabled = false;
                     sendButton.disabled = false;
@@ -142,38 +141,49 @@ async function startConversation() {
                     agentStatus.textContent = 'ready for text';
                 },
                 onDisconnect: () => {
-                    console.log('Conversation disconnected');
+                    console.log('✗ Conversation disconnected');
                     connectionStatus.textContent = 'Disconnected';
                     textInput.disabled = true;
                     sendButton.disabled = true;
                     agentStatus.textContent = 'disconnected';
                 },
                 onError: (error) => {
-                    console.error('Text conversation error:', error);
-                    connectionStatus.textContent = 'Error';
+                    console.error('✗ Text conversation error:', error);
+                    connectionStatus.textContent = 'Error: ' + error.message;
+                    addMessage('Error: ' + error.message, false);
                 },
-                // CRITICAL: Handle agent responses via onMessage
                 onMessage: (message) => {
-                    console.log('Message received:', message);
-                    if (message.type === 'agent_response') {
-                        console.log('Agent:', message.text);
-                        // Display agent's text response in UI
-                        addMessage(message.text, false);
-                    } else if (message.type === 'interruption') {
-                        console.log('Conversation interrupted');
+                    console.log('📨 Message received:', message);
+                    
+                    // Handle AI messages
+                    if (message.source === 'ai' && message.message) {
+                        console.log('✓ Displaying AI message:', message.message);
+                        addMessage(message.message, false);
                     }
+                },
+                onStatusChange: (status) => {
+                    console.log('📊 Status changed:', status);
+                },
+                onModeChange: (mode) => {
+                    console.log('🔄 Mode changed:', mode);
                 }
             });
+            
+            console.log('Conversation object created');
         }
 
     } catch (error) {
-        console.error('Failed to start conversation:', error);
+        console.error('✗ Failed to start conversation:', error);
         connectionStatus.textContent = 'Connection Failed';
+        if (conversationMode === 'text') {
+            addMessage('Failed to connect: ' + error.message, false);
+        }
         throw error;
     }
 }
 
 async function stopConversation() {
+    console.log('Stopping conversation...');
     if (conversation) {
         await conversation.endSession();
         conversation = null;

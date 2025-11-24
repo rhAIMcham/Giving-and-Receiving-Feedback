@@ -1288,7 +1288,6 @@ function goToSlide(slideNumber) {
     currentSlide = slideNumber;
     updateSlider();
     updateButtons();
-    updateArrowButtons();
 }
 
 function nextSlide() {
@@ -1296,7 +1295,6 @@ function nextSlide() {
         currentSlide++;
         updateSlider();
         updateButtons();
-        updateArrowButtons();
     }
 }
 
@@ -1305,13 +1303,12 @@ function previousSlide() {
         currentSlide--;
         updateSlider();
         updateButtons();
-        updateArrowButtons();
     }
 }
 
 function updateSlider() {
     const slideContainer = document.getElementById('slideContainer');
-    const translateX = -(currentSlide - 1) * 20; // Each slide is 20% width
+    const translateX = -(currentSlide - 1) * 20;
     slideContainer.style.transform = `translateX(${translateX}%)`;
 }
 
@@ -1319,14 +1316,6 @@ function updateButtons() {
     const buttons = document.querySelectorAll('.nav-button');
     buttons.forEach(btn => btn.classList.remove('active'));
     buttons[currentSlide - 1].classList.add('active');
-}
-
-function updateArrowButtons() {
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    
-    prevBtn.disabled = (currentSlide === 1);
-    nextBtn.disabled = (currentSlide === totalSlides);
 }
 
 // Keyboard navigation
@@ -1340,7 +1329,7 @@ document.addEventListener('keydown', function(event) {
 
 // Chart setup
 var labels = ["Analytical", "Driver", "Expressive", "Amiable"];
-let yValues = [1, 2, 3, 4];
+let yValues = [0, 0, 0, 0];
 var barColors = [
   "#E99283",
   "#006057",
@@ -1387,7 +1376,7 @@ const chart = new Chart("communicationStyle", {
   },
 });
 
-// Form calculation functions
+// Form calculation functions - one for each style
 function calculateStyle1(form) {
    var answers = 0;
    if (form.elements.one.checked) answers += 1;
@@ -1526,11 +1515,10 @@ function changeDisplay() {
     currentSlide = 1;
     updateSlider();
     updateButtons();
-    updateArrowButtons();
 }
 
 // Initialize
-updateArrowButtons();
+updateButtons();
 </script>
 </body>
 </html>

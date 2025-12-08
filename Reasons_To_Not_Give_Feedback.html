@@ -77,6 +77,7 @@ li {
   background-color: #AF4510;
   -webkit-transition: .4s;
   transition: .4s;
+  border-radius: 34px;
 }
 
 .slider:before {
@@ -89,22 +90,27 @@ li {
   background-color: white;
   -webkit-transition: .4s;
   transition: .4s;
+  border-radius: 50%;
 }
 
 .inputOne:checked + .slider {
-  background-color: #38416D;
+  background-color: var(--darkBlue);
 }
 
 .inputOne:focus + .slider {
-  box-shadow: 0 0 1px #38416D;
+  box-shadow: 0 0 4px 2px var(--darkBlue), inset 0 0 0 2px var(--white);
+  outline: 2px solid var(--darkBlue);
+  outline-offset: 2px;
 }
 
 .inputTwo:checked + .slider {
-  background-color: #38416D;
+  background-color: var(--darkBlue);
 }
 
 .inputTwo:focus + .slider {
-  box-shadow: 0 0 1px #38416D;
+  box-shadow: 0 0 4px 2px var(--darkBlue), inset 0 0 0 2px var(--white);
+  outline: 2px solid var(--darkBlue);
+  outline-offset: 2px;
 }
 
 input:checked + .slider:before {
@@ -132,7 +138,8 @@ fieldset {
   border-bottom: grey 2px dotted;
   display: flex;
   justify-content: space-between;
-  padding-top: 5px;
+  padding: 10px;
+    text-align: left;
 }
 
 button {
@@ -153,6 +160,11 @@ button:hover {
   background-color: var(--lightBlue);
   color: #12195C;
   border: solid 2px #12195C;
+}
+
+button:focus {
+  outline: 2px solid var(--darkBlue);
+  outline-offset: 2px;
 }
 
 .floaty {
@@ -179,79 +191,88 @@ button:hover {
 <div class="borderGroup">
 <form name="negativeFeedback" onsubmit="return false" onchange="calculateNegative(this)">
  <fieldset>
+    <legend><h2>Reasons to avoid giving negative feedback</h2></legend>
     <p>Below are some common reasons people avoid giving constructive feedback.<br><br>
         <em>Select the ones that resonate with you.</em></p>
-  <legend style="display:none;"></legend>
    <div class="formContainer">
-    <div class="checkContainer">
-        <h3>Avoiding negative feedback</h3><h3 class="floaty">NO / YES</h3>
-    </div>
   <!--Check 1-->
      <div class="checkContainer">
-     <p label="question1">It may upset the other person</p>
+     <label for="negQ1">It may upset the other person</label>
       <label class="switch">
         <input
+          id="negQ1"
           class="inputOne"
           type="checkbox"
           role="switch"
+          aria-label="It may upset the other person"
           name="one"
           autocomplete="off">
-       <span class="slider round"></span></label></div>
+       <span class="slider round" aria-hidden="true"></span></label></div>
   <!--Check 2-->
    <div class="checkContainer">
-   <p label="question2">The person may reject the feedback</p>
+   <label for="negQ2">The person may reject the feedback</label>
      <label class="switch">
         <input 
+          id="negQ2"
           class="inputOne"
           type="checkbox"
           role="switch"
+          aria-label="The person may reject the feedback"
           name="two"
           autocomplete="off">
-       <span class="slider round"></span></label></div>
+       <span class="slider round" aria-hidden="true"></span></label></div>
   <!--Check 3-->
    <div class="checkContainer">
-   <p label="question3">The person may respond with negative feedback in return</p>
+   <label for="negQ3">The person may respond with negative feedback in return</label>
      <label class="switch">
         <input 
+        id="negQ3"
         class="inputOne"
         type="checkbox"
         role="switch"
+        aria-label="The person may respond with negative feedback in return"
         name="three"
         autocomplete="off">
-       <span class="slider round"></span></label></div>
+       <span class="slider round" aria-hidden="true"></span></label></div>
   <!--Check 4-->
    <div class="checkContainer">
-   <p label="question4">Fear of confrontation – concern that confrontation may make things more difficult</p>
+   <label for="negQ4">Fear of confrontation – concern that confrontation may make things more difficult</label>
      <label class="switch">
         <input
+        id="negQ4"
         class="inputOne"
         type="checkbox"
         role="switch"
+        aria-label="Fear of confrontation – concern that confrontation may make things more difficult"
         name="four"
         autocomplete="off">
-       <span class="slider round"></span></label></div>
+       <span class="slider round" aria-hidden="true"></span></label></div>
   <!--Check 5-->
    <div class="checkContainer">
-   <p label="question5">Consider the feedback too trivial – save it up for something 'serious'</p>
+   <label for="negQ5">Consider the feedback too trivial – save it up for something 'serious'</label>
      <label class="switch">
         <input
+        id="negQ5"
         class="inputOne"
         type="checkbox"
         role="switch"
+        aria-label="Consider the feedback too trivial – save it up for something 'serious'"
         name="five"
         autocomplete="off">
-       <span class="slider round"></span></label></div>
+       <span class="slider round" aria-hidden="true"></span></label></div>
    <!--Check 6-->
    <div class="checkContainer">
-   <p label="question6">Don't want to be seen as nitpicky</p>
+   <label for="negQ6">Don't want to be seen as nitpicky</label>
      <label class="switch">
         <input
+        id="negQ6"
         class="inputOne"
         type="checkbox"
         role="switch"
+        aria-label="Don't want to be seen as nitpicky"
         name="six"
         autocomplete="off">
-       <span class="slider round"></span></label></div>
+       <span class="slider round" aria-hidden="true"></span></label></div>
    </div>
   <p style="display:none;"><output name="result" id="numericalResult"></output></p>
  </fieldset>
@@ -260,78 +281,85 @@ button:hover {
 <div class="borderGroup">
 <form name="positiveFeedback" onsubmit="return false" onchange="calculatePositive(this)">
  <fieldset>
+    <legend><h2>Reasons to avoid giving positive feedback</h2></legend>
     <p>Below are some common reasons people avoid giving positive feedback.<br><br>
         <em>Click on any that resonate with you.</em></p>
-  <legend style="display:none;"></legend>
    <div class="formContainer">
-        <div class="checkContainer">
-        <h3>Avoiding positive feedback</h3><h3 class="floaty">NO / YES</h3>
-    </div>
 <!--Check 1-->
      <div class="checkContainer">
-     <p label="question1">They're just doing what they are being paid to do</p>
+     <label for="posQ1">They're just doing what they are being paid to do</label>
       <label class="switch">
         <input
+          id="posQ1"
           class="inputTwo"
           type="checkbox"
           role="switch"
+          aria-label="They're just doing what they are being paid to do"
           name="one"
           autocomplete="off">
-       <span class="slider round"></span></label></div>
+       <span class="slider round" aria-hidden="true"></span></label></div>
   <!--Check 2-->
    <div class="checkContainer">
-   <p label="question2">They might be embarrassed</p>
+   <label for="posQ2">They might be embarrassed</label>
      <label class="switch">
         <input 
+          id="posQ2"
           class="inputTwo"
           type="checkbox"
           role="switch"
+          aria-label="They might be embarrassed"
           name="two"
           autocomplete="off">
-       <span class="slider round"></span></label></div>
+       <span class="slider round" aria-hidden="true"></span></label></div>
   <!--Check 3-->
    <div class="checkContainer">
-   <p label="question3">If you praise someone too much they'll get a big head and slack off</p>
+   <label for="posQ3">If you praise someone too much they'll get a big head and slack off</label>
      <label class="switch">
         <input 
+        id="posQ3"
         class="inputTwo"
         type="checkbox"
         role="switch"
+        aria-label="If you praise someone too much they'll get a big head and slack off"
         name="three"
         autocomplete="off">
-       <span class="slider round"></span></label></div>
+       <span class="slider round" aria-hidden="true"></span></label></div>
   <!--Check 4-->
    <div class="checkContainer">
-   <p label="question4">Don't want others to think you are fishing for compliments by giving them.</p>
+   <label for="posQ4">Don't want others to think you are fishing for compliments by giving them.</label>
      <label class="switch">
         <input
+        id="posQ4"
         class="inputTwo"
         type="checkbox"
         role="switch"
+        aria-label="Don't want others to think you are fishing for compliments by giving them"
         name="four"
         autocomplete="off">
-       <span class="slider round"></span></label></div>
+       <span class="slider round" aria-hidden="true"></span></label></div>
   <!--Check 5-->
    <div class="checkContainer">
-   <p label="question5">Others might feel unvalued if you are seen to praise an individual.</p>
+   <label for="posQ5">Others might feel unvalued if you are seen to praise an individual.</label>
      <label class="switch">
         <input
+        id="posQ5"
         class="inputTwo"
         type="checkbox"
         role="switch"
+        aria-label="Others might feel unvalued if you are seen to praise an individual"
         name="five"
         autocomplete="off">
-       <span class="slider round"></span></label></div>
+       <span class="slider round" aria-hidden="true"></span></label></div>
    </div>
   <p style="display:none;"><output name="result" id="numericalResultTwo"></output></p>
  </fieldset>
 </form>
 </div></div>
 <div class="containment">
-<button onclick="displayResults()">Submit</button>
+<button onclick="displayResults()" aria-label="Submit feedback form">Submit</button>
 </div>
 <div class="resultsGroup">
-<p id="results"></p>
+<p id="results" role="region" aria-live="polite" aria-label="Feedback results"></p>
 </div>
 </div>
 </body>
@@ -355,7 +383,7 @@ function calculatePositive(form) {
     if (form.elements.two.checked) answers += 1;
     if (form.elements.three.checked) answers += 1;
     if (form.elements.four.checked) answers += 1;
-    if (form.elements.five.checked) answers += 1; // Fixed: was 'price += 1'
+    if (form.elements.five.checked) answers += 1;
     form.elements.result.value = answers;
     console.log("Positive feedback score:", answers);
 }
